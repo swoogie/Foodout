@@ -1,0 +1,7 @@
+{
+  "name": "Food application Test",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
