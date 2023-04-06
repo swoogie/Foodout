@@ -1,0 +1,32 @@
+.card {
+  transition: transform 0.5s;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.restaurantList {
+  padding-top: 50px;
+}
+
+ion-item-divider {
+  min-height: 2px;
+}
+
+.hide {
+  display: none;
+}
+
+.avatarChip {
+  margin-right: 12px;
+}
+
+.avatarImg {
+  margin-right: 0px;
+}
+
+.companyLogo {
+  margin-left: 10px;
+  border-radius: 14%;
+}

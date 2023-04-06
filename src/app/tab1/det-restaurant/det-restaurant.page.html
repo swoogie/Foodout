@@ -1,0 +1,33 @@
+<ion-header>
+	<ion-toolbar color="light">
+		<ion-buttons slot="start">
+			<ion-button fill="solid" shape="round" color="light" (click)="goBack()">
+				<ion-icon slot="icon-only" name="arrow-back" color="primary"></ion-icon>
+			</ion-button>
+		</ion-buttons>
+		<ion-title *ngIf="(data$ | async) as data">{{ data.title }}</ion-title>
+		<ion-buttons slot="end">
+			<ion-button fill="solid" color="light" shape="round">
+				<ion-icon slot="icon-only" name="share-outline" color="primary"></ion-icon>
+			</ion-button>
+			<ion-button fill="solid" color="light" shape="round">
+				<ion-icon slot="icon-only" name="search-outline" color="primary"></ion-icon>
+			</ion-button>
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" scrollEvents="true" (ionScroll)="onScroll($event)">
+	<div #img class="header-image" [style.background-image]=""></div>
+  <!-- 'url(' + data$?.img + ')' -->
+
+	<ion-header collapse="condense" class="ion-no-border">
+		<ion-toolbar color="light">
+			<ion-title size="large" *ngIf="(data$ | async) as data">{{ data.title }}</ion-title>
+		</ion-toolbar>
+	</ion-header>
+
+<ion-content [fullscreen]="true">
+
+
+</ion-content>
