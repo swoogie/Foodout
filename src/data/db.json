@@ -1,6 +1,10 @@
 {
   "restaurants": [
-    { "id": 1, "title": "Pizza restaurant", "reviewCount": 14, "rating": 4.7},
+    { "id": 1, "title": "Pizza restaurant", "reviewCount": 14, "rating": 4.7,
+    "img": "https://devdactic.fra1.digitaloceanspaces.com/foodui/f1.jpeg",
+    "distance": "0.85 miles away",
+    "tags": ["Italian", "Pizza", "Pasta", "Salads", "Vegetarian", "Alcohol", "Wine", "Vegan Friendly"],
+    "about": "The home of handmade fresh pasta, thin crust pizza, protein packed salads, homemade sauces and dressings too. Choose your pasta shape and add any extras you like."},
     { "id": 2, "title": "Sushi restaurant", "reviewCount": 11, "rating": 4},
     { "id": 3, "title": "Noodle restaurant", "reviewCount": 5, "rating": 4.3},
     { "id": 4, "title": "Curry restaurant", "reviewCount": 7, "rating": 3.9},
