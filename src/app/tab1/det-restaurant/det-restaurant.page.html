@@ -34,7 +34,7 @@
 				<ion-icon name="star" color="primary"></ion-icon>
 				<ion-text color="primary"> {{ data.title }}</ion-text>
 				<ion-text color="medium">
-					<!-- {{ data.ratings }}<span *ngFor="let tag of data.tags | slice:0:2"> · {{ tag }} </span> -->
+					{{ data.rating }}<span *ngFor="let tag of data.tags | slice:0:2"> · {{ tag }} </span>
 				</ion-text>
 			</ion-col>
 			<ion-col size="12" class="light-bg ion-padding-start">
@@ -76,25 +76,24 @@
 		your order is received.
 	</div>
 
-  <!-- <div slot="fixed">
-    <ion-slides
-      [options]="opts"
-      *ngIf="data"
-      [ngClass]="{'slides-visible': categorySlidesVisible, 'slides-hidden': !categorySlidesVisible}"
-    >
-      <ion-slide *ngFor="let entry of data.food; let i = index;">
-        <ion-button
+  <div slot="fixed">
+    <swiper-container
+    [options]="opts"
+      *ngIf="food$"
+      [ngClass]="{'slides-visible': categorySlidesVisible, 'slides-hidden': !categorySlidesVisible}">
+    <swiper-slide *ngFor="let entry of food$ | async; let i = index;" >
+      <ion-button
           [class.active-category]="activeCategory === i"
           fill="clear"
           (click)="selectCategory(i)"
         >
           {{ entry.category }}
         </ion-button>
-      </ion-slide>
-    </ion-slides>
-  </div> -->
-<!--
-  <ion-list *ngFor="let entry of data?.food">
+    </swiper-slide>
+    </swiper-container>
+  </div>
+
+  <ion-list *ngFor="let entry of food$ | async">
     <ion-list-header>
       <ion-label>{{ entry.category}}</ion-label>
     </ion-list-header>
@@ -110,8 +109,6 @@
         <div class="meal-image" [style.background-image]="'url(' + meal.img + ')'"></div>
       </ion-col>
     </ion-row>
-  </ion-list> -->
-
-
+  </ion-list>
 
 </ion-content>
