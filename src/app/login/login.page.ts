@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
+import { PostService } from '../services/post.service';
+
+const formBuilder = new FormBuilder().nonNullable;
 
 @Component({
   selector: 'app-login',
@@ -10,11 +13,16 @@ import { IonicModule } from '@ionic/angular';
   standalone: true,
   imports: [IonicModule, CommonModule, FormsModule]
 })
+
 export class LoginPage implements OnInit {
 
-  constructor() { }
+  constructor(private postService: PostService) { }
 
   ngOnInit() {
+  }
+
+  addUser(data) {
+    this.postService.addNewUser(data);
   }
 
 }
