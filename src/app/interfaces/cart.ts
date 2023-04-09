@@ -3,5 +3,5 @@ export interface Cart {
   price: number;
   info: string;
   img: string;
-  amount: number;
+  amount?: number;
 }

@@ -18,6 +18,8 @@ import { FabbuttonComponent } from '../../fabbutton/fabbutton.component';
 import { CartComponent } from '../../cart/cart.component';
 import { Food } from 'src/app/interfaces/food';
 import { register } from 'swiper/element/bundle';
+import { Cart } from 'src/app/interfaces/cart';
+import { CartService } from 'src/app/services/cart.service';
 register();
 
 @Component({
@@ -53,6 +55,7 @@ export class DetRestaurantPage implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private alertController: AlertController,
+    private cartService: CartService,
   ) {}
   data$: Observable<Restaurant>;
   food$: Observable<Food[]>;
@@ -86,12 +89,28 @@ export class DetRestaurantPage implements OnInit {
     }
   }
 
-  async addItemToCart(_t119: { name: string; price: number; info: string; img: string; }) {
-
-  }
-
   goBack() {
     this.router.navigate(['/']);
+  }
+
+  public alertButtons = [
+    {
+      text: 'Continue',
+    },
+    {
+      text: 'To main page',
+      handler: () => this.router.navigate(['/']),
+    }
+  ]
+
+  async addItemToCart(meal: Cart) {
+    this.cartService.addProduct(meal);
+    const alert = await this.alertController.create({
+      message: 'Added to Cart',
+      buttons: this.alertButtons,
+    })
+    await alert.present();
+
   }
 
   selectCategory(index) {
