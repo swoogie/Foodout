@@ -20,6 +20,8 @@ import {
 import { CartComponent } from '../cart/cart.component';
 import { FabbuttonComponent } from '../fabbutton/fabbutton.component';
 import { accessSync } from 'fs';
+import { CartService } from '../services/cart.service';
+import { Cart } from '../interfaces/cart';
 
 @Component({
   selector: 'app-tab1',
@@ -36,7 +38,7 @@ import { accessSync } from 'fs';
   ],
 })
 export class Tab1Page implements OnInit {
-  constructor(private apiService: ApiService, private renderer: Renderer2) {}
+  constructor(private apiService: ApiService, private renderer: Renderer2, private cartService: CartService) {}
   data$!: Observable<Restaurant[]>;
   results: Restaurant[] = [];
   @ViewChild('header') header: HTMLElement;
@@ -139,17 +141,23 @@ export class Tab1Page implements OnInit {
         this.pagenum++;
       }
       this.infScroll.disabled = true;
-      console.log("disabled true");
       (ev as InfiniteScrollCustomEvent).target.complete();
     }, 300);
 
     setTimeout(() => {
       if (!this.isEmpty) {
         this.infScroll.disabled = false;
-        console.log("disabled false");
       }
     }, 500)
 
+  }
+
+  getCartCount(): number {
+    return this.cartService.getCartItemCount().getValue();
+  }
+
+  getCartItems(): Cart[] {
+    return this.cartService.getCart();
   }
 
   // public results = [...this.data];

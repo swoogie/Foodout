@@ -1,9 +1,10 @@
 <ion-fab>
   <ion-fab-button>
     <ion-icon name="basket"></ion-icon>
+    <ion-badge color="danger" *ngIf="cartCount" >{{ cartCount }}</ion-badge>
   </ion-fab-button>
   <ion-fab-list side="top">
-    <ion-fab-button color="danger">
+    <ion-fab-button color="danger" (click)="clearCart()">
       <ion-icon name="close"></ion-icon>
     </ion-fab-button>
   </ion-fab-list>

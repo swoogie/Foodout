@@ -43,7 +43,6 @@ export class DetRestaurantPage implements OnInit {
     slidesOffsetBefore: 30,
     slidesOffsetAfter: 100,
   };
-
   activeCategory = 0;
   @ViewChildren(IonList, { read: ElementRef }) lists: QueryList<ElementRef>;
   listElements = [];
@@ -106,7 +105,7 @@ export class DetRestaurantPage implements OnInit {
   async addItemToCart(meal: Cart) {
     this.cartService.addProduct(meal);
     const alert = await this.alertController.create({
-      message: 'Added to Cart',
+      message: `Added to Cart: ${meal.name}`,
       buttons: this.alertButtons,
     })
     await alert.present();

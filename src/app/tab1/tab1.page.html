@@ -89,9 +89,9 @@
       </ion-infinite-scroll>
     </ion-list>
 
-  <app-fabbutton class="alignBottomButton" slot="fixed"></app-fabbutton>
+  <app-fabbutton class="alignBottomButton" slot="fixed" [cartCount]="getCartCount()"></app-fabbutton>
 </ion-content>
 
 <router-outlet></router-outlet>
 
-<app-cart trigger="open-modal"></app-cart>
+<app-cart trigger="open-modal" [cart]="getCartItems()"></app-cart>

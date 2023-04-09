@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
+import { CartService } from '../services/cart.service';
 
 @Component({
   selector: 'app-fabbutton',
@@ -11,10 +12,14 @@ import { IonicModule } from '@ionic/angular';
   standalone: true,
   imports: [IonicModule, CommonModule, FormsModule, RouterModule],
 })
-export class FabbuttonComponent  implements OnInit {
+export class FabbuttonComponent implements OnInit {
+  @Input() cartCount: number;
+  constructor(private cartService: CartService) {}
+  // public cartCount: number;
+  ngOnInit() {
+  }
 
-  constructor() { }
-
-  ngOnInit() {}
-
+  clearCart() {
+    this.cartService.clearCart();
+  }
 }

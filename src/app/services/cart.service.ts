@@ -9,7 +9,6 @@ import { Cart } from '../interfaces/cart';
 export class CartService {
   private cart: Cart[] = [];
   private cartItemCount = new BehaviorSubject(0);
-
   constructor() {}
 
   getCart() {
@@ -20,7 +19,7 @@ export class CartService {
     return this.cartItemCount;
   }
 
-  addProduct(product) {
+  addProduct(product: Cart) {
     let added = false;
     for (let p of this.cart) {
       if (p.name === product.name) {
@@ -36,7 +35,7 @@ export class CartService {
     this.cartItemCount.next(this.cartItemCount.value + 1);
   }
 
-  decreaseProduct(product) {
+  decreaseProduct(product: Cart) {
     for (let [index, p] of this.cart.entries()) {
       if (p.name === product.name) {
         p.amount -= 1;
@@ -48,12 +47,16 @@ export class CartService {
     this.cartItemCount.next(this.cartItemCount.value - 1);
   }
 
-  removeProduct(product) {
+  removeProduct(product: Cart) {
     for (let [index, p] of this.cart.entries()) {
       if (p.name === product.name) {
         this.cartItemCount.next(this.cartItemCount.value - p.amount);
         this.cart.splice(index, 1);
       }
     }
+  }
+  clearCart() {
+    this.cart = [];
+    this.cartItemCount.next(0);
   }
 }
