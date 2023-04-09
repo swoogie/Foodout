@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonicModule, IonContent, IonList } from '@ionic/angular';
+import { IonicModule, IonContent, IonList, AlertController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { Restaurant } from 'src/app/interfaces/restaurant';
@@ -51,7 +51,8 @@ export class DetRestaurantPage implements OnInit {
   constructor(
     private apiService: ApiService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private alertController: AlertController,
   ) {}
   data$: Observable<Restaurant>;
   food$: Observable<Food[]>;
@@ -83,6 +84,10 @@ export class DetRestaurantPage implements OnInit {
         break;
       }
     }
+  }
+
+  async addItemToCart(_t119: { name: string; price: number; info: string; img: string; }) {
+
   }
 
   goBack() {

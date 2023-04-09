@@ -1,5 +1,5 @@
 import { Component, OnInit, Renderer2, ViewChild } from '@angular/core';
-import { InfiniteScrollCustomEvent, IonicModule } from '@ionic/angular';
+import { InfiniteScrollCustomEvent, IonInfiniteScroll, IonicModule } from '@ionic/angular';
 import { ExploreContainerComponent } from '../explore-container/explore-container.component';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -41,6 +41,7 @@ export class Tab1Page implements OnInit {
   results: Restaurant[] = [];
   @ViewChild('header') header: HTMLElement;
   @ViewChild('searchbar') searchbar: HTMLElement;
+  @ViewChild('infScroll') infScroll: IonInfiniteScroll;
   dataArray: Restaurant[] = [];
   ngOnInit() {
     this.data$ = this.apiService.get2Restaurants(1);
@@ -118,16 +119,14 @@ export class Tab1Page implements OnInit {
   pagenum: number = 2;
   isEmpty: boolean;
   loadingComplete: boolean = false;
-  onIonInfinite(ev) {
+  async onIonInfinite(ev) {
     this.smolpage$ = this.apiService.get2Restaurants(this.pagenum);
     this.smolpage$
       .pipe(
         tap((arr) => {
           if (arr.length === 0) {
-            // console.error('Observable is empty');
             this.isEmpty = true;
           } else {
-            // console.log('Observable contains data:', arr);
             this.isEmpty = false;
           }
         })
@@ -139,8 +138,18 @@ export class Tab1Page implements OnInit {
         this.dataArray = [...this.dataArray, ...this.smolpageArr]
         this.pagenum++;
       }
+      this.infScroll.disabled = true;
+      console.log("disabled true");
       (ev as InfiniteScrollCustomEvent).target.complete();
     }, 300);
+
+    setTimeout(() => {
+      if (!this.isEmpty) {
+        this.infScroll.disabled = false;
+        console.log("disabled false");
+      }
+    }, 500)
+
   }
 
   // public results = [...this.data];

@@ -67,7 +67,7 @@
     #searchbar
   ></ion-searchbar>
     <ion-list class="restaurantList">
-      <a *ngFor="let result of dataArray">
+      <a *ngFor="let result of dataArray || results">
         <ion-card class="card" [routerLink]="['./', result.id]">
           <img
             alt="Image of restaurant"
@@ -84,7 +84,7 @@
           <ion-card-content> </ion-card-content>
         </ion-card>
       </a>
-      <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)" threshold="0%">
+      <ion-infinite-scroll #infScroll (ionInfinite)="onIonInfinite($event)" threshold="0%">
         <ion-infinite-scroll-content></ion-infinite-scroll-content>
       </ion-infinite-scroll>
     </ion-list>
