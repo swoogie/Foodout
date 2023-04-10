@@ -13,22 +13,29 @@ const formBuilder = new FormBuilder().nonNullable;
   templateUrl: './registration.page.html',
   styleUrls: ['./registration.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule, ReactiveFormsModule]
+  imports: [IonicModule, CommonModule, FormsModule, ReactiveFormsModule],
 })
 export class RegistrationPage implements OnInit {
-  constructor(private postService: PostService, private router: Router) { }
+  constructor(
+    private postService: PostService,
+    private router: Router
+  ) {}
+
+  ngOnInit() { }
 
   postForm = formBuilder.group({
+    id: [],
     firstName: [''],
     lastName: [''],
     email: [''],
-    password: ['']
-  })
-
-  ngOnInit() {
-  }
+    password: [''],
+  });
 
   addUser() {
-    this.postService.addNewUser(this.postForm.value as User).subscribe(response => {this.router.navigate(["/tabs/yourProfile"])});
+    this.postService
+      .addNewUser(this.postForm.value as User)
+      .subscribe((response) => {
+        this.router.navigate(['/tabs/yourProfile']);
+      });
   }
 }

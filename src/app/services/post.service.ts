@@ -10,6 +10,6 @@ export class PostService {
   constructor(private http: HttpClient) { }
 
   addNewUser(user: User) {
-    return this.http.post<User>('http://localhost:3000/user', user);
+    return this.http.post<User>('http://localhost:3000/users', user);
   }
 }
