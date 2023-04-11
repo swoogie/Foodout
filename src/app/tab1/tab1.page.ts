@@ -1,25 +1,16 @@
 import { Component, OnInit, Renderer2, ViewChild } from '@angular/core';
-import { InfiniteScrollCustomEvent, IonInfiniteScroll, IonicModule } from '@ionic/angular';
-import { ExploreContainerComponent } from '../explore-container/explore-container.component';
+import {
+  InfiniteScrollCustomEvent,
+  IonInfiniteScroll,
+  IonicModule,
+} from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ApiService } from '../services/api.service';
 import { Restaurant } from '../interfaces/restaurant';
-import {
-  Observable,
-  from,
-  map,
-  mergeMap,
-  toArray,
-  concat,
-  merge,
-  reduce,
-  tap,
-  zip,
-} from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { CartComponent } from '../cart/cart.component';
 import { FabbuttonComponent } from '../fabbutton/fabbutton.component';
-import { accessSync } from 'fs';
 import { CartService } from '../services/cart.service';
 import { Cart } from '../interfaces/cart';
 
@@ -30,7 +21,6 @@ import { Cart } from '../interfaces/cart';
   standalone: true,
   imports: [
     IonicModule,
-    ExploreContainerComponent,
     CommonModule,
     RouterModule,
     CartComponent,
@@ -38,7 +28,11 @@ import { Cart } from '../interfaces/cart';
   ],
 })
 export class Tab1Page implements OnInit {
-  constructor(private apiService: ApiService, private renderer: Renderer2, private cartService: CartService) {}
+  constructor(
+    private apiService: ApiService,
+    private renderer: Renderer2,
+    private cartService: CartService
+  ) {}
   data$!: Observable<Restaurant[]>;
   results: Restaurant[] = [];
   @ViewChild('header') header: HTMLElement;
@@ -47,16 +41,17 @@ export class Tab1Page implements OnInit {
   dataArray: Restaurant[] = [];
   ngOnInit() {
     this.data$ = this.apiService.get2Restaurants(1);
-    this.data$.pipe().subscribe(e => {
+    this.data$.pipe().subscribe((e) => {
       this.dataArray = e;
-    })
+    });
     this.results = [...this.dataArray];
   }
 
   filterItemsByTitle(event: Event): void {
     const query = (<HTMLInputElement>event.target).value.toLowerCase();
-    this.results = this.dataArray.filter(d => d.title.toLowerCase().indexOf(query) > -1);
-
+    this.results = this.dataArray.filter(
+      (d) => d.title.toLowerCase().indexOf(query) > -1
+    );
   }
 
   ionViewWillEnter() {
@@ -133,11 +128,11 @@ export class Tab1Page implements OnInit {
           }
         })
       )
-      .subscribe(e => this.smolpageArr = e);
+      .subscribe((e) => (this.smolpageArr = e));
 
     setTimeout(() => {
       if (!this.isEmpty) {
-        this.dataArray = [...this.dataArray, ...this.smolpageArr]
+        this.dataArray = [...this.dataArray, ...this.smolpageArr];
         this.pagenum++;
       }
       this.infScroll.disabled = true;
@@ -148,8 +143,7 @@ export class Tab1Page implements OnInit {
       if (!this.isEmpty) {
         this.infScroll.disabled = false;
       }
-    }, 500)
-
+    }, 500);
   }
 
   getCartCount(): number {

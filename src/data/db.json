@@ -1,105 +1,189 @@
 {
   "restaurants": [
-    { "id": 1, "title": "Pizza restaurant", "reviewCount": 14, "rating": 4.7,
-    "img": "",
-    "distance": "0.85 miles away",
-    "tags": ["Italian", "Pizza", "Pasta", "Salads", "Vegetarian", "Alcohol", "Wine", "Vegan Friendly"],
-    "about": "The home of handmade fresh pasta, thin crust pizza, protein packed salads, homemade sauces and dressings too. Choose your pasta shape and add any extras you like."},
-    { "id": 2, "title": "Sushi restaurant", "reviewCount": 11, "rating": 4},
-    { "id": 3, "title": "Noodle restaurant", "reviewCount": 5, "rating": 4.3},
-    { "id": 4, "title": "Curry restaurant", "reviewCount": 7, "rating": 3.9},
-    { "id": 5, "title": "Burger restaurant", "reviewCount": 3, "rating": 2.5},
-    { "id": 6, "title": "Kebab restaurant", "reviewCount": 12, "rating": 4.6},
-    { "id": 7, "title": "Chicken restaurant", "reviewCount": 8, "rating": 4.3}
+    {
+      "id": 1,
+      "title": "Pizza restaurant",
+      "reviewCount": 14,
+      "rating": 4.7,
+      "img": "",
+      "distance": "0.85 miles away",
+      "tags": [
+        "Italian",
+        "Pizza",
+        "Pasta",
+        "Salads",
+        "Vegetarian",
+        "Alcohol",
+        "Wine",
+        "Vegan Friendly"
+      ],
+      "about": "The home of handmade fresh pasta, thin crust pizza, protein packed salads, homemade sauces and dressings too. Choose your pasta shape and add any extras you like."
+    },
+    {
+      "id": 2,
+      "title": "Sushi restaurant",
+      "reviewCount": 11,
+      "rating": 4
+    },
+    {
+      "id": 3,
+      "title": "Noodle restaurant",
+      "reviewCount": 5,
+      "rating": 4.3
+    },
+    {
+      "id": 4,
+      "title": "Curry restaurant",
+      "reviewCount": 7,
+      "rating": 3.9
+    },
+    {
+      "id": 5,
+      "title": "Burger restaurant",
+      "reviewCount": 3,
+      "rating": 2.5
+    },
+    {
+      "id": 6,
+      "title": "Kebab restaurant",
+      "reviewCount": 12,
+      "rating": 4.6
+    },
+    {
+      "id": 7,
+      "title": "Chicken restaurant",
+      "reviewCount": 8,
+      "rating": 4.3
+    }
   ],
   "comments": [
-    { "id": 1, "body": "some comment", "postId": 1 }
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
   ],
-  "profile": { "name": "typicode" },
+  "profile": {
+    "name": "typicode"
+  },
   "food": [
     {
-        "restaurant_id": 1,
-        "category": "Meal Deals 🍕🍝",
-        "meals": [
-            {
-                "name": "Pasta Power ✊",
-                "price": 17,
-                "info": "Includes one garlic bread, one pasta and one soft drink.",
-                "img": "https://devdactic.fra1.digitaloceanspaces.com/foodui/1.png"
-            },
-            {
-                "name": "Vegetariano 💚",
-                "price": 17,
-                "info": "Includes one garlic bread, one vegetarian pasta and one soft drink",
-                "img": "https://devdactic.fra1.digitaloceanspaces.com/foodui/2.png"
-            },
-            {
-                "name": "Vaps Date 💕",
-                "price": 40,
-                "info": "Includes one garlic bread with or without cheese, choice of two pizzas, one bottle of wine or four bottles of Moretti",
-                "img": "https://devdactic.fra1.digitaloceanspaces.com/foodui/3.png"
-            },
-            {
-                "name": "Livin' your best life 😎",
-                "price": 80,
-                "info": "Includes two garlic breads with or without cheese, four pizzas, two bottles of wine or eight bottles of beer or a mix of both",
-                "img": "https://devdactic.fra1.digitaloceanspaces.com/foodui/4.png"
-            }
-        ]
+      "restaurant_id": 1,
+      "category": "Meal Deals 🍕🍝",
+      "meals": [
+        {
+          "name": "Pasta Power ✊",
+          "price": 17,
+          "info": "Includes one garlic bread, one pasta and one soft drink.",
+          "img": "https://devdactic.fra1.digitaloceanspaces.com/foodui/1.png"
+        },
+        {
+          "name": "Vegetariano 💚",
+          "price": 17,
+          "info": "Includes one garlic bread, one vegetarian pasta and one soft drink",
+          "img": "https://devdactic.fra1.digitaloceanspaces.com/foodui/2.png"
+        },
+        {
+          "name": "Vaps Date 💕",
+          "price": 40,
+          "info": "Includes one garlic bread with or without cheese, choice of two pizzas, one bottle of wine or four bottles of Moretti",
+          "img": "https://devdactic.fra1.digitaloceanspaces.com/foodui/3.png"
+        },
+        {
+          "name": "Livin' your best life 😎",
+          "price": 80,
+          "info": "Includes two garlic breads with or without cheese, four pizzas, two bottles of wine or eight bottles of beer or a mix of both",
+          "img": "https://devdactic.fra1.digitaloceanspaces.com/foodui/4.png"
+        }
+      ]
     },
     {
-       "restaurant_id": 1,
-        "category": "Pasta 🍝",
-        "meals": [
-            {
-                "name": "Arrabbiata",
-                "price": 9.35,
-                "info": "Tomato sauce, chilli, garlic, and onions",
-                "img": "https://devdactic.fra1.digitaloceanspaces.com/foodui/5.png"
-            },
-            {
-                "name": "Pomodoro e Mozzarella",
-                "price": 10.75,
-                "info": "Tomato sauce, onions, mozzarella",
-                "img": "https://devdactic.fra1.digitaloceanspaces.com/foodui/6.png"
-            }
-        ]
+      "restaurant_id": 1,
+      "category": "Pasta 🍝",
+      "meals": [
+        {
+          "name": "Arrabbiata",
+          "price": 9.35,
+          "info": "Tomato sauce, chilli, garlic, and onions",
+          "img": "https://devdactic.fra1.digitaloceanspaces.com/foodui/5.png"
+        },
+        {
+          "name": "Pomodoro e Mozzarella",
+          "price": 10.75,
+          "info": "Tomato sauce, onions, mozzarella",
+          "img": "https://devdactic.fra1.digitaloceanspaces.com/foodui/6.png"
+        }
+      ]
     },
     {
-        "restaurant_id": 1,
-        "category": "Pizza 🍕",
-        "meals": [
-            {
-                "name": "Salame",
-                "price": 11.35,
-                "info": "Spicy Italian sausage, tomato sauce, mozzarella",
-                "img": "https://devdactic.fra1.digitaloceanspaces.com/foodui/7.png"
-            },
-            {
-                "name": "Margherity",
-                "price": 9.75,
-                "info": "Tomato sauce, mozzarella",
-                "img": "https://devdactic.fra1.digitaloceanspaces.com/foodui/8.png"
-            }
-        ]
+      "restaurant_id": 1,
+      "category": "Pizza 🍕",
+      "meals": [
+        {
+          "name": "Salame",
+          "price": 11.35,
+          "info": "Spicy Italian sausage, tomato sauce, mozzarella",
+          "img": "https://devdactic.fra1.digitaloceanspaces.com/foodui/7.png"
+        },
+        {
+          "name": "Margherity",
+          "price": 9.75,
+          "info": "Tomato sauce, mozzarella",
+          "img": "https://devdactic.fra1.digitaloceanspaces.com/foodui/8.png"
+        }
+      ]
     },
     {
-        "restaurant_id": 1,
-        "category": "Salad 🥗",
-        "meals": [
-            {
-                "name": "Insalata Mista Piccola",
-                "price": 5.99,
-                "info": "Mixed leaf salad, cherry tomatoes and grated carrot. There can be no swaps, if you would like to add any extras please customise below.",
-                "img": "https://devdactic.fra1.digitaloceanspaces.com/foodui/9.png"
-            },
-            {
-                "name": "Insalata Mista della Casa",
-                "price": 8.95,
-                "info": "Large mixed salad. There can be no swaps, if you would like to add any extras please customise below.",
-                "img": "https://devdactic.fra1.digitaloceanspaces.com/foodui/10.png"
-            }
-        ]
+      "restaurant_id": 1,
+      "category": "Salad 🥗",
+      "meals": [
+        {
+          "name": "Insalata Mista Piccola",
+          "price": 5.99,
+          "info": "Mixed leaf salad, cherry tomatoes and grated carrot. There can be no swaps, if you would like to add any extras please customise below.",
+          "img": "https://devdactic.fra1.digitaloceanspaces.com/foodui/9.png"
+        },
+        {
+          "name": "Insalata Mista della Casa",
+          "price": 8.95,
+          "info": "Large mixed salad. There can be no swaps, if you would like to add any extras please customise below.",
+          "img": "https://devdactic.fra1.digitaloceanspaces.com/foodui/10.png"
+        }
+      ]
     }
-]
+  ],
+  "orders": [
+    {
+      "id": 1,
+      "cart": [
+        {
+          "name": "Pasta Power ✊",
+          "price": 17,
+          "info": "Includes one garlic bread, one pasta and one soft drink.",
+          "img": "https://devdactic.fra1.digitaloceanspaces.com/foodui/1.png",
+          "amount": 1
+        }
+      ]
+    },
+    [
+      {
+        "name": "Pasta Power ✊",
+        "price": 17,
+        "info": "Includes one garlic bread, one pasta and one soft drink.",
+        "img": "https://devdactic.fra1.digitaloceanspaces.com/foodui/1.png",
+        "amount": 1
+      }
+    ],
+    [],
+    [],
+    [
+      {
+        "name": "Vegetariano 💚",
+        "price": 17,
+        "info": "Includes one garlic bread, one vegetarian pasta and one soft drink",
+        "img": "https://devdactic.fra1.digitaloceanspaces.com/foodui/2.png",
+        "amount": 1
+      }
+    ]
+  ]
 }

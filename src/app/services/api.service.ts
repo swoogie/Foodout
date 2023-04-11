@@ -29,4 +29,8 @@ export class ApiService {
       `http://localhost:3000/food?restaurant_id=${id}`
     );
   }
+
+  postOrder(data: any): Observable<any> {
+    return this.http.post('http://localhost:3000/orders', data);
+  }
 }
