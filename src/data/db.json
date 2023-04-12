@@ -66,6 +66,29 @@
   "profile": {
     "name": "typicode"
   },
+  "users": [
+    {
+      "id": "0",
+      "firstName": "asdfasfdsa",
+      "lastName": "sdfgfsdg",
+      "email": "beiga.vytautas@gmail.com",
+      "password": "sdhsdfgs"
+    },
+    {
+      "id": 1,
+      "firstName": "testas2",
+      "lastName": "testas2",
+      "email": "asdgasgdasgd",
+      "password": "asdfgggh"
+    },
+    {
+      "id": 2,
+      "firstName": "onemore",
+      "lastName": "jkasdkf",
+      "email": "asfghadga",
+      "password": "hsdfbvasd"
+    }
+  ],
   "food": [
     {
       "restaurant_id": 1,
