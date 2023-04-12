@@ -3,6 +3,7 @@ import { map, Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Restaurant } from '../interfaces/restaurant';
 import { User } from '../interfaces/user';
+import { Food } from '../interfaces/food';
 
 @Injectable({
   providedIn: 'root',
@@ -15,6 +16,12 @@ export class ApiService {
 
   getRestaurants(): Observable<Restaurant[]> {
     return this.http.get<Restaurant[]>('http://localhost:3000/restaurants');
+  }
+
+  get2Restaurants(pageNum: number): Observable<Restaurant[]> {
+    return this.http.get<Restaurant[]>(
+      `http://localhost:3000/restaurants?_page=${pageNum}&_limit=3`
+    );
   }
 
   getRestaurantById(id: string): Observable<Restaurant> {
@@ -44,7 +51,16 @@ export class ApiService {
 
   getUserByEmail(email: string): Observable<User> {
     return this.getUsers().pipe(
-      map(users => users.find(user => user.email === email))
+      map((users) => users.find((user) => user.email === email))
     );
+  }
+  getFoodByRestaurantId(id: string): Observable<Food[]> {
+    return this.http.get<Food[]>(
+      `http://localhost:3000/food?restaurant_id=${id}`
+    );
+  }
+
+  postOrder(data: any): Observable<any> {
+    return this.http.post('http://localhost:3000/orders', data);
   }
 }
