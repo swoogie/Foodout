@@ -39,7 +39,10 @@
     >
       <ng-template>
         <ion-content>
-          <ion-item [button]="true" [detail]="false"
+          <ion-item
+            [button]="true"
+            [detail]="false"
+            (click)="navigateToLoginPage()"
             >Login and register</ion-item
           >
           <ion-item-divider></ion-item-divider>
@@ -66,30 +69,38 @@
     (ionInput)="filterItemsByTitle($event)"
     #searchbar
   ></ion-searchbar>
-    <ion-list class="restaurantList">
-      <a *ngFor="let result of dataArray || results">
-        <ion-card class="card" [routerLink]="['./', result.id]">
-          <img
-            alt="Image of restaurant"
-            src="https://ionicframework.com/docs/img/demos/card-media.png"
-          />
-          <ion-card-header>
-            <ion-card-title>{{ result.title }}</ion-card-title>
-            <ion-card-subtitle>
-              {{ result.reviewCount }} Reviews
-              <ion-icon name="star"></ion-icon> {{ result.rating }}
-            </ion-card-subtitle>
-          </ion-card-header>
+  <ion-list class="restaurantList">
+    <a *ngFor="let result of dataArray || results">
+      <ion-card class="card" [routerLink]="['./', result.id]">
+        <img
+          alt="Image of restaurant"
+          src="https://ionicframework.com/docs/img/demos/card-media.png"
+        />
+        <ion-card-header>
+          <ion-card-title>{{ result.title }}</ion-card-title>
+          <ion-card-subtitle>
+            {{ result.reviewCount }} Reviews
+            <ion-icon name="star"></ion-icon> {{ result.rating }}
+          </ion-card-subtitle>
+        </ion-card-header>
 
-          <ion-card-content> </ion-card-content>
-        </ion-card>
-      </a>
-      <ion-infinite-scroll #infScroll (ionInfinite)="onIonInfinite($event)" threshold="0%">
-        <ion-infinite-scroll-content></ion-infinite-scroll-content>
-      </ion-infinite-scroll>
-    </ion-list>
+        <ion-card-content> </ion-card-content>
+      </ion-card>
+    </a>
+    <ion-infinite-scroll
+      #infScroll
+      (ionInfinite)="onIonInfinite($event)"
+      threshold="0%"
+    >
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </ion-list>
 
-  <app-fabbutton class="alignBottomButton" slot="fixed" [cartCount]="getCartCount()"></app-fabbutton>
+  <app-fabbutton
+    class="alignBottomButton"
+    slot="fixed"
+    [cartCount]="getCartCount()"
+  ></app-fabbutton>
 </ion-content>
 
 <router-outlet></router-outlet>

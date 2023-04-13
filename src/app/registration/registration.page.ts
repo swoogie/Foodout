@@ -23,6 +23,10 @@ export class RegistrationPage implements OnInit {
 
   ngOnInit() { }
 
+  navigateToLoginPage() {
+    this.router.navigate(['/login']);
+  }
+
   postForm = formBuilder.group({
     id: [],
     firstName: [''],

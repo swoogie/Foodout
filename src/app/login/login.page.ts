@@ -29,6 +29,10 @@ export class LoginPage implements OnInit {
     });
   }
 
+  navigateToRegistrationPage() {
+    this.router.navigate(['/registration']);
+  }
+
   getForm = formBuilder.group({
     email: '',
     password: '',

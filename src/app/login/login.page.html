@@ -7,18 +7,33 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <form [formGroup] = "getForm" (ngSubmit)="signInUser()">
+  <form [formGroup]="getForm" (ngSubmit)="signInUser()">
     <ion-item lines="full">
       <ion-label position="floating">Email</ion-label>
       <ion-input type="text" formControlName="email" required></ion-input>
     </ion-item>
     <ion-item lines="full">
       <ion-label position="floating">Password</ion-label>
-      <ion-input type="password" formControlName="password" required></ion-input>
+      <ion-input
+        type="password"
+        formControlName="password"
+        required
+      ></ion-input>
     </ion-item>
     <ion-row>
       <ion-col>
-        <ion-button type="submit" color="tertiary" expand="block">Sign In</ion-button>
+        <ion-button type="submit" color="tertiary" expand="block"
+          >Sign In</ion-button
+        >
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-row class="createAccount">
+          <ion-text (click)="navigateToRegistrationPage()">
+            Don't have an account?
+          </ion-text>
+        </ion-row>
       </ion-col>
     </ion-row>
   </form>
