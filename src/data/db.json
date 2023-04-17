@@ -94,6 +94,13 @@
       "lastName": "Didelis",
       "email": "veikia@veikimas.lt",
       "password": "testas"
+    },
+    {
+      "id": 4,
+      "firstName": "",
+      "lastName": "",
+      "email": "",
+      "password": ""
     }
   ],
   "food": [
