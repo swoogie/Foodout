@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Platform } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
+import { KJUR } from 'jsrsasign';
 import {
   BehaviorSubject,
   from,
@@ -13,7 +14,6 @@ import {
   switchMap,
   take,
 } from 'rxjs';
-
 
 const TOKEN_KEY = 'jwt-token';
 
@@ -39,9 +39,9 @@ export class AuthService {
     let platformObs = from(this.plt.ready());
     this.user = platformObs.pipe(
       switchMap(() => {
-        return from(this.storage.get(TOKEN_KEY))
+        return from(this.storage.get(TOKEN_KEY));
       }),
-      map(token => {
+      map((token) => {
         console.log('Token from storage: ', token);
         if (token) {
           let decoded = this.jwtHelper.decodeToken(token);
@@ -56,39 +56,40 @@ export class AuthService {
   }
 
   login(email: string, pass: string): Observable<any> {
-    if (
-      email != 'beiga.vytautas@gmail.com' ||
-      pass != 'hehehe'
-    ) {
-      return of(null);
-    } else {
-      return this.http.get('http://localhost:3000/users/0').pipe(
-        take(1),
-        map((res) => {
-          return `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJlaWdhLnZ5dGF1dGFzQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiaGVoZWhlIn0._ORj5LMbyzYsGGqqhyo42i7d6IPe40Ho2Z0DgdnhCNQ`;
-        }),
-        switchMap((token) => {
-          let decoded = this.jwtHelper.decodeToken(token);
-          console.log('login decoded: ', decoded);
-          this.userData.next(decoded);
+    return this.http.get('http://localhost:3000/users/0').pipe(
+      take(1),
+      map((res) => {
+        // return `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJlaWdhLnZ5dGF1dGFzQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiaGVoZWhlIn0._ORj5LMbyzYsGGqqhyo42i7d6IPe40Ho2Z0DgdnhCNQ`;
+        const secret = 'kas-skaitys-tas-gaidys';
+        const header = { alg: 'HS256', typ: 'JWT' };
+        const payload = {
+          email: email,
+          password: pass,
+          iat: Math.floor(Date.now() / 1000),
+        };
 
-          let storagePromise = new Promise<void>((resolve, reject) => {
-            try {
-              this.storage.set(TOKEN_KEY, token);
-              this.storage.get(TOKEN_KEY).then((storedToken) => {
-                resolve(storedToken);
-              });
+        return KJUR.jws.JWS.sign(null, header, payload, { utf8: secret });
+      }),
+      switchMap((token) => {
+        let decoded = this.jwtHelper.decodeToken(token);
+        console.log('login decoded: ', decoded);
+        this.userData.next(decoded);
 
-            } catch (error) {
-              reject(error);
-            }
-          });
+        let storagePromise = new Promise<void>((resolve, reject) => {
+          try {
+            this.storage.set(TOKEN_KEY, token);
+            this.storage.get(TOKEN_KEY).then((storedToken) => {
+              resolve(storedToken);
+            });
+          } catch (error) {
+            reject(error);
+          }
+        });
 
-          let storageObs = from(storagePromise);
-          return storageObs;
-        })
-      );
-    }
+        let storageObs = from(storagePromise);
+        return storageObs;
+      })
+    );
   }
 
   getUser() {
@@ -100,13 +101,5 @@ export class AuthService {
       this.router.navigateByUrl('/');
       this.userData.next(null);
     });
-  }
-
-  isLoggedIn() {
-    const token = localStorage.getItem('token'); // get token from local storage
-    const payload = atob(token.split('.')[1]); // decode payload of token
-    const parsedPayload = JSON.parse(payload); // convert payload into an Object
-
-    return parsedPayload.exp > Date.now() / 1000; // check if token is expired
   }
 }

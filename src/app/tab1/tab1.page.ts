@@ -13,6 +13,7 @@ import { CartComponent } from '../cart/cart.component';
 import { FabbuttonComponent } from '../fabbutton/fabbutton.component';
 import { CartService } from '../services/cart.service';
 import { Cart } from '../interfaces/cart';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-tab1',
@@ -32,7 +33,8 @@ export class Tab1Page implements OnInit {
     private apiService: ApiService,
     private renderer: Renderer2,
     private cartService: CartService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
   data$!: Observable<Restaurant[]>;
   results: Restaurant[] = [];
@@ -66,6 +68,19 @@ export class Tab1Page implements OnInit {
 
   navigateToLoginPage() {
     this.router.navigate(['/login']);
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/']);
+  }
+
+  isUserLoggedIn() {
+    if (this.authService.getUser()) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   currposY = 0;

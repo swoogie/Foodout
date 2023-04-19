@@ -40,11 +40,20 @@
       <ng-template>
         <ion-content>
           <ion-item
+            *ngIf="isUserLoggedIn(); else loginText"
             [button]="true"
             [detail]="false"
-            (click)="navigateToLoginPage()"
-            >Login and register</ion-item
+            (click)="logout()"
+            >Log out</ion-item
           >
+          <ng-template #loginText>
+            <ion-item
+              [button]="true"
+              [detail]="false"
+              (click)="navigateToLoginPage()"
+              >Login and register</ion-item
+            >
+          </ng-template>
           <ion-item-divider></ion-item-divider>
           <ion-item [button]="true" [detail]="false">Language...</ion-item>
           <ion-item [button]="true" [detail]="false">Support</ion-item>

@@ -16,7 +16,6 @@ export const routes: Routes = [
       import('./registration/registration.page').then(
         (m) => m.RegistrationPage
       ),
-      canActivate: [AuthGuard],
   },
   {
     path: 'checkout',

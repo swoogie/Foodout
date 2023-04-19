@@ -25,6 +25,14 @@ export class RegistrationPage implements OnInit {
 
   ngOnInit() { }
 
+  isUserLoggedIn() {
+    if (this.authService.getUser()) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   navigateToLoginPage() {
     // this.router.navigate(['/login']);
     this.authService.logout();

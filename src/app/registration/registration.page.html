@@ -35,8 +35,17 @@
           <ion-text (click)="navigateToLoginPage()">
             Already have an account?
           </ion-text>
+          <!-- <ion-text *ngIf="getUser(); else loginText" (click)="navigateToLoginPage()">
+            You are logged in
+          </ion-text> -->
         </ion-row>
       </ion-col>
     </ion-row>
   </form>
 </ion-content>
+
+<!-- <ng-template #loginText>
+  <ion-text (click)="navigateToLoginPage()">
+    Already have an account?
+  </ion-text>
+</ng-template> -->

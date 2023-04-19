@@ -52,8 +52,8 @@ export class LoginPage implements OnInit {
     this.email = this.loginForm.controls.email.value;
     this.password = this.loginForm.controls.password.value;
 
-    this.authService.login(this.email, this.password).subscribe(async value => {
-      if (value) {
+    this.authService.login(this.email, this.password).subscribe( value => {
+      if (this.authService.getUser()) {
         this.router.navigate(['/tabs/yourProfile']);
       } else {
         this.alertCtrl
