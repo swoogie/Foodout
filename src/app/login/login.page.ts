@@ -40,6 +40,10 @@ export class LoginPage implements OnInit {
     this.router.navigate(['/registration']);
   }
 
+  goBack() {
+    this.router.navigate(['/']);
+  }
+
   loginForm = formBuilder.group({
     email: '',
     password: '',
@@ -52,19 +56,19 @@ export class LoginPage implements OnInit {
     this.email = this.loginForm.controls.email.value;
     this.password = this.loginForm.controls.password.value;
 
-    this.authService.login(this.email, this.password).subscribe( value => {
+    this.authService.login(this.email, this.password).subscribe((value) => {
       if (this.authService.getUser()) {
         this.router.navigate(['/tabs/yourProfile']);
       } else {
         this.alertCtrl
-        .create({
-          header: 'Login failed',
-          message: 'Wrong credentials, try again',
-          buttons: ['OK'],
-        })
-        .then((alert) => alert.present());
+          .create({
+            header: 'Login failed',
+            message: 'Wrong credentials, try again',
+            buttons: ['OK'],
+          })
+          .then((alert) => alert.present());
       }
-    })
+    });
 
     // if (this.apiService.checkIfUserExist(this.email, this.password)) {
     //   this.apiService.getUserByEmail(this.email).subscribe((res) => {

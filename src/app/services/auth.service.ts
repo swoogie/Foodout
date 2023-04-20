@@ -59,7 +59,6 @@ export class AuthService {
     return this.http.get('http://localhost:3000/users/0').pipe(
       take(1),
       map((res) => {
-        // return `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJlaWdhLnZ5dGF1dGFzQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiaGVoZWhlIn0._ORj5LMbyzYsGGqqhyo42i7d6IPe40Ho2Z0DgdnhCNQ`;
         const secret = 'kas-skaitys-tas-gaidys';
         const header = { alg: 'HS256', typ: 'JWT' };
         const payload = {
@@ -72,7 +71,6 @@ export class AuthService {
       }),
       switchMap((token) => {
         let decoded = this.jwtHelper.decodeToken(token);
-        console.log('login decoded: ', decoded);
         this.userData.next(decoded);
 
         let storagePromise = new Promise<void>((resolve, reject) => {

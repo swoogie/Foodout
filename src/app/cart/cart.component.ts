@@ -13,11 +13,11 @@ import { RouterModule } from '@angular/router';
   standalone: true,
   imports: [IonicModule, CommonModule, FormsModule, RouterModule],
 })
-export class CartComponent implements OnInit {
+export class CartComponent {
   @Input() cart: Cart[];
   total: number = 0;
   constructor(private cartService: CartService) {}
-  ngOnInit() {}
+  // ngOnInit() {}
   getTotal(): number {
     return this.cart.reduce((acc, item) => acc + item.price * item.amount, 0);
   }
