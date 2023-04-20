@@ -29,5 +29,23 @@
         <ion-button type="submit" color="tertiary" expand="block">Sign Up</ion-button>
       </ion-col>
     </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-row class="login">
+          <ion-text (click)="navigateToLoginPage()">
+            Already have an account?
+          </ion-text>
+          <!-- <ion-text *ngIf="getUser(); else loginText" (click)="navigateToLoginPage()">
+            You are logged in
+          </ion-text> -->
+        </ion-row>
+      </ion-col>
+    </ion-row>
   </form>
 </ion-content>
+
+<!-- <ng-template #loginText>
+  <ion-text (click)="navigateToLoginPage()">
+    Already have an account?
+  </ion-text>
+</ng-template> -->

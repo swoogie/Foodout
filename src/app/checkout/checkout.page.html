@@ -11,6 +11,13 @@
     </ion-toolbar>
   </ion-header>
   <div>
+    <ion-list>
+      <ion-label *ngFor="let cartItem of cart">
+        {{ cartItem.name }} {{ cartItem.price }}
+      </ion-label>
+    </ion-list>
+  </div>
+  <div>
     <ion-item>Your total: {{ getTotal() | currency : "EUR" }}</ion-item>
     <ion-button color="success" (click)="postOrder()"> Confirm </ion-button>
     <ion-button color="danger" (click)="goBack()"> Go back </ion-button>

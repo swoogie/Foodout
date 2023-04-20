@@ -5,7 +5,7 @@ import {
   IonicModule,
 } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { ApiService } from '../services/api.service';
 import { Restaurant } from '../interfaces/restaurant';
 import { Observable, tap } from 'rxjs';
@@ -13,6 +13,7 @@ import { CartComponent } from '../cart/cart.component';
 import { FabbuttonComponent } from '../fabbutton/fabbutton.component';
 import { CartService } from '../services/cart.service';
 import { Cart } from '../interfaces/cart';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-tab1',
@@ -31,7 +32,9 @@ export class Tab1Page implements OnInit {
   constructor(
     private apiService: ApiService,
     private renderer: Renderer2,
-    private cartService: CartService
+    private cartService: CartService,
+    private router: Router,
+    private authService: AuthService
   ) {}
   data$!: Observable<Restaurant[]>;
   results: Restaurant[] = [];
@@ -61,6 +64,23 @@ export class Tab1Page implements OnInit {
       'webkitTransition',
       'top 100ms'
     );
+  }
+
+  navigateToLoginPage() {
+    this.router.navigate(['/login']);
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/']);
+  }
+
+  isUserLoggedIn() {
+    if (this.authService.getUser()) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   currposY = 0;

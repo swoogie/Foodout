@@ -72,21 +72,42 @@
       "firstName": "asdfasfdsa",
       "lastName": "sdfgfsdg",
       "email": "beiga.vytautas@gmail.com",
-      "password": "sdhsdfgs"
+      "password": "hehehe"
     },
     {
       "id": 1,
       "firstName": "testas2",
       "lastName": "testas2",
-      "email": "asdgasgdasgd",
-      "password": "asdfgggh"
+      "email": "testas@test.lt",
+      "password": "hehehe"
     },
     {
       "id": 2,
       "firstName": "onemore",
       "lastName": "jkasdkf",
-      "email": "asfghadga",
-      "password": "hsdfbvasd"
+      "email": "testukas@test.lt",
+      "password": "hehehe"
+    },
+    {
+      "id": 3,
+      "firstName": "Testas",
+      "lastName": "Didelis",
+      "email": "veikia@veikimas.lt",
+      "password": "testas"
+    },
+    {
+      "id": 4,
+      "firstName": "",
+      "lastName": "",
+      "email": "",
+      "password": ""
+    },
+    {
+      "id": 5,
+      "firstName": "",
+      "lastName": "",
+      "email": "",
+      "password": ""
     }
   ],
   "food": [
@@ -177,8 +198,8 @@
   ],
   "orders": [
     {
-      "id": 1,
-      "cart": [
+      "id": 0,
+      "order": [
         {
           "name": "Pasta Power ✊",
           "price": 17,
@@ -188,25 +209,36 @@
         }
       ]
     },
-    [
-      {
-        "name": "Pasta Power ✊",
-        "price": 17,
-        "info": "Includes one garlic bread, one pasta and one soft drink.",
-        "img": "https://devdactic.fra1.digitaloceanspaces.com/foodui/1.png",
-        "amount": 1
-      }
-    ],
-    [],
-    [],
-    [
-      {
-        "name": "Vegetariano 💚",
-        "price": 17,
-        "info": "Includes one garlic bread, one vegetarian pasta and one soft drink",
-        "img": "https://devdactic.fra1.digitaloceanspaces.com/foodui/2.png",
-        "amount": 1
-      }
-    ]
+    {
+      "id": 1,
+      "order": [
+        {
+          "name": "Pasta Power ✊",
+          "price": 17,
+          "info": "Includes one garlic bread, one pasta and one soft drink.",
+          "img": "https://devdactic.fra1.digitaloceanspaces.com/foodui/1.png",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "order": [
+        {
+          "name": "Pasta Power ✊",
+          "price": 17,
+          "info": "Includes one garlic bread, one pasta and one soft drink.",
+          "img": "https://devdactic.fra1.digitaloceanspaces.com/foodui/1.png",
+          "amount": 1
+        },
+        {
+          "name": "Vegetariano 💚",
+          "price": 17,
+          "info": "Includes one garlic bread, one vegetarian pasta and one soft drink",
+          "img": "https://devdactic.fra1.digitaloceanspaces.com/foodui/2.png",
+          "amount": 1
+        }
+      ]
+    }
   ]
 }

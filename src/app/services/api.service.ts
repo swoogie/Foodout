@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Restaurant } from '../interfaces/restaurant';
 import { User } from '../interfaces/user';
 import { Food } from '../interfaces/food';
+import { Order } from '../interfaces/order';
 
 @Injectable({
   providedIn: 'root',
@@ -61,6 +62,14 @@ export class ApiService {
   }
 
   postOrder(data: any): Observable<any> {
-    return this.http.post('http://localhost:3000/orders', data);
+    const newOrder: Order = {
+      id: null,
+      order: data,
+    };
+    return this.http.post('http://localhost:3000/orders', newOrder);
+  }
+
+  getUserOrders(): Observable<any> {
+    return this.http.get('http://localhost:3000/orders');
   }
 }

@@ -5,6 +5,7 @@ import { IonicModule } from '@ionic/angular';
 import { PostService } from '../services/post.service';
 import { User } from '../interfaces/user';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 const formBuilder = new FormBuilder().nonNullable;
 
@@ -18,10 +19,24 @@ const formBuilder = new FormBuilder().nonNullable;
 export class RegistrationPage implements OnInit {
   constructor(
     private postService: PostService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
 
   ngOnInit() { }
+
+  isUserLoggedIn() {
+    if (this.authService.getUser()) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  navigateToLoginPage() {
+    // this.router.navigate(['/login']);
+    this.authService.logout();
+  }
 
   postForm = formBuilder.group({
     id: [],
@@ -32,6 +47,7 @@ export class RegistrationPage implements OnInit {
   });
 
   addUser() {
+    console.log(this.authService.getUser());
     this.postService
       .addNewUser(this.postForm.value as User)
       .subscribe((response) => {

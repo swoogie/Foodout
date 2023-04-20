@@ -1,18 +1,3 @@
-<!-- <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Search
-    </ion-title>
-  </ion-toolbar>
-</ion-header> -->
-
-<!--
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Search</ion-title>
-    </ion-toolbar>
-  </ion-header> -->
-
 <ion-header #header>
   <ion-toolbar>
     <ion-thumbnail class="companyLogo">
@@ -39,9 +24,21 @@
     >
       <ng-template>
         <ion-content>
-          <ion-item [button]="true" [detail]="false"
-            >Login and register</ion-item
+          <ion-item
+            *ngIf="isUserLoggedIn(); else loginText"
+            [button]="true"
+            [detail]="false"
+            (click)="logout()"
+            >Log out</ion-item
           >
+          <ng-template #loginText>
+            <ion-item
+              [button]="true"
+              [detail]="false"
+              (click)="navigateToLoginPage()"
+              >Login and register</ion-item
+            >
+          </ng-template>
           <ion-item-divider></ion-item-divider>
           <ion-item [button]="true" [detail]="false">Language...</ion-item>
           <ion-item [button]="true" [detail]="false">Support</ion-item>
@@ -66,30 +63,38 @@
     (ionInput)="filterItemsByTitle($event)"
     #searchbar
   ></ion-searchbar>
-    <ion-list class="restaurantList">
-      <a *ngFor="let result of dataArray || results">
-        <ion-card class="card" [routerLink]="['./', result.id]">
-          <img
-            alt="Image of restaurant"
-            src="https://ionicframework.com/docs/img/demos/card-media.png"
-          />
-          <ion-card-header>
-            <ion-card-title>{{ result.title }}</ion-card-title>
-            <ion-card-subtitle>
-              {{ result.reviewCount }} Reviews
-              <ion-icon name="star"></ion-icon> {{ result.rating }}
-            </ion-card-subtitle>
-          </ion-card-header>
+  <ion-list class="restaurantList">
+    <a *ngFor="let result of dataArray || results">
+      <ion-card class="card" [routerLink]="['./', result.id]">
+        <img
+          alt="Image of restaurant"
+          src="https://ionicframework.com/docs/img/demos/card-media.png"
+        />
+        <ion-card-header>
+          <ion-card-title>{{ result.title }}</ion-card-title>
+          <ion-card-subtitle>
+            {{ result.reviewCount }} Reviews
+            <ion-icon name="star"></ion-icon> {{ result.rating }}
+          </ion-card-subtitle>
+        </ion-card-header>
 
-          <ion-card-content> </ion-card-content>
-        </ion-card>
-      </a>
-      <ion-infinite-scroll #infScroll (ionInfinite)="onIonInfinite($event)" threshold="0%">
-        <ion-infinite-scroll-content></ion-infinite-scroll-content>
-      </ion-infinite-scroll>
-    </ion-list>
+        <ion-card-content> </ion-card-content>
+      </ion-card>
+    </a>
+    <ion-infinite-scroll
+      #infScroll
+      (ionInfinite)="onIonInfinite($event)"
+      threshold="0%"
+    >
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </ion-list>
 
-  <app-fabbutton class="alignBottomButton" slot="fixed" [cartCount]="getCartCount()"></app-fabbutton>
+  <app-fabbutton
+    class="alignBottomButton"
+    slot="fixed"
+    [cartCount]="getCartCount()"
+  ></app-fabbutton>
 </ion-content>
 
 <router-outlet></router-outlet>

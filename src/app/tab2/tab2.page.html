@@ -1,17 +1,33 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Your orders
-    </ion-title>
+    <ion-title> My orders </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Your orders</ion-title>
+      <ion-title size="large">My orders</ion-title>
     </ion-toolbar>
   </ion-header>
-
-
+  <div>
+    <ion-list
+      lines="full"
+      *ngFor="let order of userOrders | async; let i = index"
+    >
+      <ion-item details="true" class="item-div">
+        <ion-label>
+          <h3>Order no. {{ i + 1 }}</h3>
+          <div class="order-details" *ngFor="let item of order.order">
+            <p>{{item.name}}</p>
+            <p>Quantity: {{item.amount}}</p>
+            <p>{{item.price | currency: 'EUR'}}</p>
+          </div>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
 </ion-content>
