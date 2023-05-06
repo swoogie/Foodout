@@ -5,6 +5,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { Platform } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { KJUR } from 'jsrsasign';
+import { ApiService } from './api.service';
 import {
   BehaviorSubject,
   from,
@@ -29,7 +30,8 @@ export class AuthService {
     private storage: Storage,
     private http: HttpClient,
     private plt: Platform,
-    private router: Router
+    private router: Router,
+    private apiService: ApiService
   ) {
     this.storage.create();
     this.loadStoredToken();
@@ -42,10 +44,10 @@ export class AuthService {
         return from(this.storage.get(TOKEN_KEY));
       }),
       map((token) => {
-        console.log('Token from storage: ', token);
+        // console.log('Token from storage: ', token);
         if (token) {
           let decoded = this.jwtHelper.decodeToken(token);
-          console.log('decoded: ', decoded);
+          // console.log('decoded: ', decoded);
           this.userData.next(decoded);
           return true;
         } else {
@@ -56,7 +58,15 @@ export class AuthService {
   }
 
   login(email: string, pass: string): Observable<any> {
-    return this.http.get('http://localhost:3000/users/0').pipe(
+    if (this.apiService.checkIfUserExist(email, pass)) {
+
+    } else {
+      console.log("neteisingai suvesta")
+      return of(null);
+    }
+    // return of(null)
+
+    return this.apiService.getUsers().pipe(
       take(1),
       map((res) => {
         const secret = 'kas-skaitys-tas-gaidys';
@@ -80,6 +90,7 @@ export class AuthService {
               resolve(storedToken);
             });
           } catch (error) {
+            console.log("This is error: " + error)
             reject(error);
           }
         });

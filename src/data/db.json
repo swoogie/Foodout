@@ -68,7 +68,7 @@
   },
   "users": [
     {
-      "id": "0",
+      "id": 0,
       "firstName": "asdfasfdsa",
       "lastName": "sdfgfsdg",
       "email": "beiga.vytautas@gmail.com",
@@ -94,20 +94,6 @@
       "lastName": "Didelis",
       "email": "veikia@veikimas.lt",
       "password": "testas"
-    },
-    {
-      "id": 4,
-      "firstName": "",
-      "lastName": "",
-      "email": "",
-      "password": ""
-    },
-    {
-      "id": 5,
-      "firstName": "",
-      "lastName": "",
-      "email": "",
-      "password": ""
     }
   ],
   "food": [
