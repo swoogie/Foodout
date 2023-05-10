@@ -1,47 +1,70 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar class="loginHeader">
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <ion-button shape="round" (click)="goBack()">
+        <ion-icon slot="icon-only" name="arrow-back" color="medium"></ion-icon>
+      </ion-button>
     </ion-buttons>
     <ion-title>Register</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <form [formGroup] = "postForm" (ngSubmit)="addUser()">
-    <ion-item lines="full">
-      <ion-label position="floating">First name</ion-label>
-      <ion-input type="text" formControlName="firstName" required></ion-input>
-    </ion-item>
-    <ion-item lines="full">
-      <ion-label position="floating">Last name</ion-label>
-      <ion-input type="text" formControlName="lastName" required></ion-input>
-    </ion-item>
-    <ion-item lines="full">
-      <ion-label position="floating">Email</ion-label>
-      <ion-input type="text" formControlName="email" required></ion-input>
-    </ion-item>
-    <ion-item lines="full">
-      <ion-label position="floating">Password</ion-label>
-      <ion-input type="password" formControlName="password" required></ion-input>
-    </ion-item>
-    <ion-row>
-      <ion-col>
-        <ion-button type="submit" color="tertiary" expand="block">Sign Up</ion-button>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>
-        <ion-row class="login">
-          <ion-text (click)="navigateToLoginPage()">
-            Already have an account?
-          </ion-text>
-          <!-- <ion-text *ngIf="getUser(); else loginText" (click)="navigateToLoginPage()">
-            You are logged in
-          </ion-text> -->
-        </ion-row>
-      </ion-col>
-    </ion-row>
-  </form>
+  <div class="form-div">
+    <form [formGroup]="postForm" (ngSubmit)="addUser()">
+      <ion-item lines="full">
+        <ion-input
+          label="First Name"
+          labelPlacement="floating"
+          type="text"
+          formControlName="firstName"
+          required
+        ></ion-input>
+      </ion-item>
+      <ion-item lines="full">
+        <ion-input
+          label="Last Name"
+          labelPlacement="floating"
+          type="text"
+          formControlName="lastName"
+          required
+        ></ion-input>
+      </ion-item>
+      <ion-item lines="full">
+        <ion-input
+          label="Email"
+          labelPlacement="floating"
+          type="text"
+          formControlName="email"
+          required
+        ></ion-input>
+      </ion-item>
+      <ion-item lines="full">
+        <ion-input
+          label="Password"
+          labelPlacement="floating"
+          type="password"
+          formControlName="password"
+          required
+        ></ion-input>
+      </ion-item>
+      <ion-item *ngIf="password.value" lines="full">
+        <ion-input
+          label="Repeat Password"
+          labelPlacement="floating"
+          type="password"
+          formControlName="repeatPassword"
+          required
+        ></ion-input>
+      </ion-item>
+      <ion-row>
+        <ion-col>
+          <ion-button type="submit" color="tertiary" expand="block"
+            >Sign Up</ion-button
+          >
+        </ion-col>
+      </ion-row>
+    </form>
+  </div>
 </ion-content>
 
 <!-- <ng-template #loginText>

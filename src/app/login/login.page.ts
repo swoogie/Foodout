@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { User } from '../interfaces/user';
 import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth.service';
+import { Location } from '@angular/common';
 import { Storage } from '@ionic/storage';
 
 const formBuilder = new FormBuilder().nonNullable;
@@ -20,6 +21,7 @@ const formBuilder = new FormBuilder().nonNullable;
 })
 export class LoginPage implements OnInit {
   constructor(
+    private storage: Storage,
     private apiService: ApiService,
     private router: Router,
     private alertCtrl: AlertController,
@@ -30,10 +32,10 @@ export class LoginPage implements OnInit {
   userExist: boolean;
 
   ngOnInit() {
-    this.data$ = this.apiService.getUsers();
-    this.data$.pipe().subscribe((e) => {
-      this.users = e;
-    });
+    // this.data$ = this.apiService.getUsers();
+    // this.data$.pipe().subscribe((e) => {
+    //   this.users = e;
+    // });
   }
 
   navigateToRegistrationPage() {
@@ -49,17 +51,17 @@ export class LoginPage implements OnInit {
     password: '',
   });
 
-  email: string;
-  password: string;
-
   signInUser() {
-    this.email = this.loginForm.controls.email.value;
-    this.password = this.loginForm.controls.password.value;
-
-    this.authService.login(this.email, this.password).subscribe((value) => {
-      if (this.authService.getUser()) {
-        this.router.navigate(['/tabs/yourProfile']);
-      } else {
+    const email = this.loginForm.controls.email.value;
+    const password = this.loginForm.controls.password.value;
+    this.authService.login(email, password).subscribe({
+      next: () => {
+        if (this.authService.getUser()) {
+          this.router.navigate(['/tabs/yourProfile']);
+        } else {
+        }
+      },
+      error: () => {
         this.alertCtrl
           .create({
             header: 'Login failed',
@@ -67,21 +69,7 @@ export class LoginPage implements OnInit {
             buttons: ['OK'],
           })
           .then((alert) => alert.present());
-      }
+      },
     });
-
-    // if (this.apiService.checkIfUserExist(this.email, this.password)) {
-    //   this.apiService.getUserByEmail(this.email).subscribe((res) => {
-    //     this.router.navigate(['/tabs/yourProfile']);
-    //   });
-    // } else {
-    //   this.alertCtrl
-    //     .create({
-    //       header: 'Unauthorized',
-    //       message: 'Wrong credentials, try again',
-    //       buttons: ['OK'],
-    //     })
-    //     .then((alert) => alert.present());
-    // }
   }
 }

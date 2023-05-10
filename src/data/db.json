@@ -68,7 +68,7 @@
   },
   "users": [
     {
-      "id": "0",
+      "id": 0,
       "firstName": "asdfasfdsa",
       "lastName": "sdfgfsdg",
       "email": "beiga.vytautas@gmail.com",
@@ -97,17 +97,11 @@
     },
     {
       "id": 4,
-      "firstName": "",
-      "lastName": "",
-      "email": "",
-      "password": ""
-    },
-    {
-      "id": 5,
-      "firstName": "",
-      "lastName": "",
-      "email": "",
-      "password": ""
+      "firstName": "qwer",
+      "lastName": "qwer",
+      "email": "qwer@qwer.com",
+      "password": "qwer",
+      "repeatPassword": "qwer"
     }
   ],
   "food": [

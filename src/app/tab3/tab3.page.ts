@@ -16,8 +16,8 @@ export class Tab3Page {
   constructor(private auth: AuthService, private router: Router) {
     this.yourEmail = this.auth.getUser().email;
   }
+
   logout() {
     this.auth.logout();
-    this.router.navigate(['/']);
   }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { map, Observable, of } from 'rxjs';
+import { find, map, Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Restaurant } from '../interfaces/restaurant';
 import { User } from '../interfaces/user';
@@ -33,28 +33,14 @@ export class ApiService {
     return this.http.get<User[]>('http://localhost:3000/users');
   }
 
+  getUserByEmail(email: string): Observable<User> {
+    return this.http.get<User>(`http://localhost:3000/users?email=${email}`);
+  }
+
   getUserById(id: string): Observable<User> {
     return this.http.get<User>(`http://localhost:3000/users/${id}`);
   }
 
-  checkIfUserExist(email: string, password: string): boolean {
-    this.data$ = this.getUsers();
-    this.data$.pipe().subscribe((e) => {
-      this.users = e;
-    });
-
-    const userWithEmail = this.users.find(
-      (user) => user.email === email && user.password === password
-    );
-
-    return !!userWithEmail;
-  }
-
-  getUserByEmail(email: string): Observable<User> {
-    return this.getUsers().pipe(
-      map((users) => users.find((user) => user.email === email))
-    );
-  }
   getFoodByRestaurantId(id: string): Observable<Food[]> {
     return this.http.get<Food[]>(
       `http://localhost:3000/food?restaurant_id=${id}`

@@ -1,5 +1,7 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
+import { LoginPage } from './login/login.page';
+import { RegistrationPage } from './registration/registration.page';
 
 export const routes: Routes = [
   {
@@ -8,20 +10,17 @@ export const routes: Routes = [
   },
   {
     path: 'login',
-    loadComponent: () => import('./login/login.page').then((m) => m.LoginPage),
+    component: LoginPage,
   },
   {
     path: 'registration',
-    loadComponent: () =>
-      import('./registration/registration.page').then(
-        (m) => m.RegistrationPage
-      ),
+    component: RegistrationPage,
   },
   {
     path: 'checkout',
     loadComponent: () =>
       import('./checkout/checkout.page').then((m) => m.CheckoutPage),
-      canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'success',

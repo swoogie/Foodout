@@ -35,13 +35,6 @@ export class AuthGuard implements CanActivate {
       take(1),
       map((user) => {
         if (!user) {
-          // this.alertCtrl
-          //   .create({
-          //     header: 'Login first',
-          //     message: 'Login to order',
-          //     buttons: ['OK'],
-          //   })
-          //   .then((alert) => alert.present());
           this.router.navigateByUrl('/login');
           this.presentToast();
           return false;
