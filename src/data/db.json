@@ -94,6 +94,14 @@
       "lastName": "Didelis",
       "email": "veikia@veikimas.lt",
       "password": "testas"
+    },
+    {
+      "id": 4,
+      "firstName": "qwer",
+      "lastName": "qwer",
+      "email": "qwer@qwer.com",
+      "password": "qwer",
+      "repeatPassword": "qwer"
     }
   ],
   "food": [

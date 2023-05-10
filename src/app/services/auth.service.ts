@@ -8,12 +8,14 @@ import { KJUR } from 'jsrsasign';
 import { ApiService } from './api.service';
 import {
   BehaviorSubject,
+  concatMap,
   from,
   map,
   Observable,
   of,
   switchMap,
   take,
+  throwError,
 } from 'rxjs';
 
 const TOKEN_KEY = 'jwt-token';
@@ -44,10 +46,8 @@ export class AuthService {
         return from(this.storage.get(TOKEN_KEY));
       }),
       map((token) => {
-        // console.log('Token from storage: ', token);
         if (token) {
           let decoded = this.jwtHelper.decodeToken(token);
-          // console.log('decoded: ', decoded);
           this.userData.next(decoded);
           return true;
         } else {
@@ -58,45 +58,26 @@ export class AuthService {
   }
 
   login(email: string, pass: string): Observable<any> {
-    if (this.apiService.checkIfUserExist(email, pass)) {
+    return this.apiService.getUserByEmail(email).pipe(
+      switchMap((user) => {
+        if (user[0].password == pass) {
+          const secret = 'kas-skaitys-tas-gaidys';
+          const header = { alg: 'HS256', typ: 'JWT' };
+          const payload = {
+            email: email,
+            password: pass,
+            iat: Math.floor(Date.now() / 1000),
+          };
+          const token = KJUR.jws.JWS.sign(null, header, payload, {
+            utf8: secret,
+          });
 
-    } else {
-      console.log("neteisingai suvesta")
-      return of(null);
-    }
-    // return of(null)
-
-    return this.apiService.getUsers().pipe(
-      take(1),
-      map((res) => {
-        const secret = 'kas-skaitys-tas-gaidys';
-        const header = { alg: 'HS256', typ: 'JWT' };
-        const payload = {
-          email: email,
-          password: pass,
-          iat: Math.floor(Date.now() / 1000),
-        };
-
-        return KJUR.jws.JWS.sign(null, header, payload, { utf8: secret });
-      }),
-      switchMap((token) => {
-        let decoded = this.jwtHelper.decodeToken(token);
-        this.userData.next(decoded);
-
-        let storagePromise = new Promise<void>((resolve, reject) => {
-          try {
-            this.storage.set(TOKEN_KEY, token);
-            this.storage.get(TOKEN_KEY).then((storedToken) => {
-              resolve(storedToken);
-            });
-          } catch (error) {
-            console.log("This is error: " + error)
-            reject(error);
-          }
-        });
-
-        let storageObs = from(storagePromise);
-        return storageObs;
+          let decoded = this.jwtHelper.decodeToken(token);
+          this.userData.next(decoded);
+          return from(this.storage.set(TOKEN_KEY, token));
+        } else {
+          return throwError(() => `Invalid email or password`);
+        }
       })
     );
   }

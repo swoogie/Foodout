@@ -1,9 +1,29 @@
-form {
-  position: relative;
-  top: 25%;
+
+.form-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // height: 80vh;
+  margin-top: 100px;
 }
 
-.login {
+.createAccount {
   color: #4854e0;
   size: 7px;
+}
+
+form {
+  width: 80%;
+}
+
+.input {
+  margin: 10px
+}
+
+.sign-in {
+  margin: 5px;
+}
+
+ion-item{
+  --background: #141414;
 }

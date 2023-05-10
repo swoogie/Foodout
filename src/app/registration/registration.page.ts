@@ -6,6 +6,7 @@ import { PostService } from '../services/post.service';
 import { User } from '../interfaces/user';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { Location } from '@angular/common';
 
 const formBuilder = new FormBuilder().nonNullable;
 
@@ -23,7 +24,7 @@ export class RegistrationPage implements OnInit {
     private authService: AuthService
   ) {}
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   isUserLoggedIn() {
     if (this.authService.getUser()) {
@@ -33,18 +34,20 @@ export class RegistrationPage implements OnInit {
     }
   }
 
-  navigateToLoginPage() {
-    // this.router.navigate(['/login']);
-    this.authService.logout();
+  goBack() {
+    this.router.navigate(['/login']);
   }
-
-  postForm = formBuilder.group({
-    id: [],
-    firstName: [''],
-    lastName: [''],
-    email: [''],
-    password: [''],
-  });
+  postForm = formBuilder.group(
+    {
+      id: [],
+      firstName: [''],
+      lastName: [''],
+      email: [''],
+      password: [''],
+      repeatPassword: [''],
+    },
+    { updateOn: 'blur' }
+  );
 
   addUser() {
     console.log(this.authService.getUser());
@@ -53,5 +56,9 @@ export class RegistrationPage implements OnInit {
       .subscribe((response) => {
         this.router.navigate(['/tabs/yourProfile']);
       });
+  }
+
+  get password() {
+    return this.postForm.get('password');
   }
 }

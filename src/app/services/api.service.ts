@@ -33,23 +33,12 @@ export class ApiService {
     return this.http.get<User[]>('http://localhost:3000/users');
   }
 
+  getUserByEmail(email: string): Observable<User> {
+    return this.http.get<User>(`http://localhost:3000/users?email=${email}`);
+  }
+
   getUserById(id: string): Observable<User> {
     return this.http.get<User>(`http://localhost:3000/users/${id}`);
-  }
-
-  checkIfUserExist(email: string, password: string): Observable<User> {
-    return this.getUsers().pipe(map(users => users.find(user => user.email === email && user.password === password)))
-
-    // this.getUsers().pipe().subscribe((e) => {
-    //   this.users = e;
-    // });
-    // return this.users.find(user => user.email === email && user.password === password)
-  }
-
-  getUserByEmail(email: string): Observable<User> {
-    return this.getUsers().pipe(
-      map((users) => users.find((user) => user.email === email))
-    );
   }
 
   getFoodByRestaurantId(id: string): Observable<Food[]> {
