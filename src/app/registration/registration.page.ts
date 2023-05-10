@@ -35,7 +35,7 @@ export class RegistrationPage implements OnInit {
   }
 
   goBack() {
-    this.router.navigate(['/login']);
+    this.router.navigate(['/tabs/login']);
   }
   postForm = formBuilder.group(
     {

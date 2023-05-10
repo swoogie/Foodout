@@ -19,7 +19,7 @@ const formBuilder = new FormBuilder().nonNullable;
   standalone: true,
   imports: [IonicModule, CommonModule, FormsModule, ReactiveFormsModule],
 })
-export class LoginPage implements OnInit {
+export class LoginPage {
   constructor(
     private storage: Storage,
     private apiService: ApiService,
@@ -31,19 +31,12 @@ export class LoginPage implements OnInit {
   users: User[] = [];
   userExist: boolean;
 
-  ngOnInit() {
-    // this.data$ = this.apiService.getUsers();
-    // this.data$.pipe().subscribe((e) => {
-    //   this.users = e;
-    // });
-  }
-
   navigateToRegistrationPage() {
-    this.router.navigate(['/registration']);
+    this.router.navigateByUrl('/tabs/registration');
   }
 
   goBack() {
-    this.router.navigate(['/']);
+    this.router.navigateByUrl('/');
   }
 
   loginForm = formBuilder.group({

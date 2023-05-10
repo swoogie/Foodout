@@ -28,6 +28,18 @@ export const routes: Routes = [
         redirectTo: 'tabs/restaurants',
         pathMatch: 'full',
       },
+      {
+        path: 'login',
+        loadComponent: () =>
+          import('../login/login.page').then((m) => m.LoginPage),
+      },
+      {
+        path: 'registration',
+        loadComponent: () =>
+          import('../registration/registration.page').then(
+            (m) => m.RegistrationPage
+          ),
+      },
     ],
   },
   {

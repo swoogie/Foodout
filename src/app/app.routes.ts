@@ -9,14 +9,6 @@ export const routes: Routes = [
     loadChildren: () => import('./tabs/tabs.routes').then((m) => m.routes),
   },
   {
-    path: 'login',
-    component: LoginPage,
-  },
-  {
-    path: 'registration',
-    component: RegistrationPage,
-  },
-  {
     path: 'checkout',
     loadComponent: () =>
       import('./checkout/checkout.page').then((m) => m.CheckoutPage),

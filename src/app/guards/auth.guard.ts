@@ -35,7 +35,7 @@ export class AuthGuard implements CanActivate {
       take(1),
       map((user) => {
         if (!user) {
-          this.router.navigateByUrl('/login');
+          this.router.navigateByUrl('/tabs/login');
           this.presentToast();
           return false;
         } else {
@@ -48,7 +48,7 @@ export class AuthGuard implements CanActivate {
   async presentToast() {
     const toast = await this.toastController.create({
       message: 'Please sign in first 🤔',
-      duration: 2000,
+      duration: 1000,
       position: 'bottom',
     });
 
