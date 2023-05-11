@@ -30,7 +30,6 @@ export class AuthService {
 
   constructor(
     private storage: Storage,
-    private http: HttpClient,
     private plt: Platform,
     private router: Router,
     private apiService: ApiService
@@ -73,8 +72,10 @@ export class AuthService {
           });
 
           let decoded = this.jwtHelper.decodeToken(token);
-          this.userData.next(decoded);
-          return from(this.storage.set(TOKEN_KEY, token));
+          return of(
+            this.storage.set(TOKEN_KEY, token),
+            this.userData.next(decoded)
+          );
         } else {
           return throwError(() => `Invalid email or password`);
         }
@@ -87,9 +88,9 @@ export class AuthService {
   }
 
   logout() {
+    this.userData.next(null);
     this.storage.remove(TOKEN_KEY).then(() => {
       this.router.navigateByUrl('/');
-      this.userData.next(null);
     });
   }
 }

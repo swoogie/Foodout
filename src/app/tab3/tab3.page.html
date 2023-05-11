@@ -50,6 +50,15 @@
     <form [formGroup]="passwordChange" (ngSubmit)="updatePass()">
       <ion-item>
         <ion-input
+          label="Previous password"
+          labelPlacement="floating"
+          type="password"
+          formControlName="prevPassword"
+          [errorText]="prevPassErr"
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input
           label="Password"
           labelPlacement="floating"
           type="password"

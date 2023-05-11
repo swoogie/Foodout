@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { AuthService } from '../services/auth.service';
 import { take } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { runInThisContext } from 'vm';
+import { AlertController, ToastController } from '@ionic/angular';
 import { ApiService } from '../services/api.service';
 import {
   FormsModule,
@@ -28,15 +29,17 @@ const formBuilder = new FormBuilder().nonNullable;
     ReactiveFormsModule,
   ],
 })
-export class Tab3Page {
+export class Tab3Page implements OnInit {
   yourEmail: string;
   yourName: any;
   yourSurname: any;
   userId: number;
   changeEmail: boolean = false;
   changePass: boolean = false;
-
+  debounce: boolean = false;
+  prevPassErr: string = 'Enter previous password';
   passwordChange = formBuilder.group({
+    prevPassword: ['', Validators.required],
     password: ['', [Validators.required, Validators.minLength(4)]],
     repeatPassword: ['', Validators.required],
   });
@@ -48,8 +51,11 @@ export class Tab3Page {
   constructor(
     private auth: AuthService,
     private router: Router,
-    private api: ApiService
-  ) {
+    private api: ApiService,
+    private toastController: ToastController
+  ) {}
+
+  ngOnInit(): void {
     this.yourEmail = this.auth.getUser().email;
     this.api.getUserByEmail(this.yourEmail).subscribe((user) => {
       this.yourName = user[0].firstName;
@@ -62,7 +68,20 @@ export class Tab3Page {
     this.auth.logout();
   }
   updatePass() {
-    throw new Error('Method not implemented.');
+    if (this.password.value !== this.repeatPassword.value) {
+      this.repeatPassword.setErrors({ passwordMismatch: true });
+    } else if (this.prevPassword.value == this.auth.getUser().password) {
+      this.api
+        .updateUserPassword(this.userId, this.password.value)
+        .subscribe(() => {
+          this.auth.getUser().password = this.password;
+          this.changePass = false;
+          this.presentToast();
+        });
+    } else {
+      this.prevPassword.setErrors({ incorrectPass: true });
+      this.prevPassErr = 'Incorrect password';
+    }
   }
   updateEmail() {
     if (this.emailChange.valid) {
@@ -70,8 +89,23 @@ export class Tab3Page {
         this.auth.getUser().email = this.email.value;
         this.yourEmail = this.auth.getUser().email;
         this.changeEmail = false;
+        this.presentToast();
       });
     }
+  }
+
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: 'Updated successfully ✅',
+      duration: 1000,
+      position: 'bottom',
+    });
+
+    await toast.present();
+  }
+
+  get prevPassword() {
+    return this.passwordChange.get('prevPassword');
   }
 
   get password() {

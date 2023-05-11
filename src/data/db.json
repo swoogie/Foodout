@@ -96,20 +96,20 @@
       "password": "testas"
     },
     {
-      "id": 4,
-      "firstName": "qwers",
-      "lastName": "qwers",
-      "email": "qwertyu@qwerty",
-      "password": "qwer",
-      "repeatPassword": "qwer"
-    },
-    {
       "id": 5,
       "firstName": "asdf",
       "lastName": "asdf",
       "email": "asdf@asdf",
       "password": "asdf",
       "repeatPassword": "asdf"
+    },
+    {
+      "id": 6,
+      "firstName": "qwerty",
+      "lastName": "qwerty",
+      "email": "qwerty@qwerty",
+      "password": "asdf",
+      "repeatPassword": "qwer"
     }
   ],
   "food": [

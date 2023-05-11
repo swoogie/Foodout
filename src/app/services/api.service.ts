@@ -49,6 +49,18 @@ export class ApiService {
     );
   }
 
+  updateUserPassword(id: number, newPassword: string): Observable<any> {
+    return this.getUserById(id).pipe(
+      switchMap((user) => {
+        const updatedUser = {
+          ...user,
+          password: newPassword,
+        };
+        return this.http.put(`http://localhost:3000/users/${id}`, updatedUser);
+      })
+    );
+  }
+
   getUserById(id: number): Observable<User> {
     return this.http.get<User>(`http://localhost:3000/users/${id}`);
   }
