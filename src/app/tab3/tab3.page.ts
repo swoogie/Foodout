@@ -29,7 +29,7 @@ const formBuilder = new FormBuilder().nonNullable;
     ReactiveFormsModule,
   ],
 })
-export class Tab3Page implements OnInit {
+export class Tab3Page {
   yourEmail: string;
   yourName: any;
   yourSurname: any;
@@ -55,7 +55,7 @@ export class Tab3Page implements OnInit {
     private toastController: ToastController
   ) {}
 
-  ngOnInit(): void {
+  ionViewWillEnter() {
     this.yourEmail = this.auth.getUser().email;
     this.api.getUserByEmail(this.yourEmail).subscribe((user) => {
       this.yourName = user[0].firstName;
