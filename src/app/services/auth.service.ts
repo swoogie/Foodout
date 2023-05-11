@@ -72,10 +72,8 @@ export class AuthService {
           });
 
           let decoded = this.jwtHelper.decodeToken(token);
-          return of(
-            this.storage.set(TOKEN_KEY, token),
-            this.userData.next(decoded)
-          );
+          this.userData.next(decoded);
+          return of(this.storage.set(TOKEN_KEY, token));
         } else {
           return throwError(() => `Invalid email or password`);
         }

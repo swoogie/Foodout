@@ -3,6 +3,7 @@ import {
   InfiniteScrollCustomEvent,
   IonInfiniteScroll,
   IonicModule,
+  ToastController,
 } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
@@ -34,7 +35,8 @@ export class Tab1Page implements OnInit {
     private renderer: Renderer2,
     private cartService: CartService,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private toastController: ToastController
   ) {}
   data$!: Observable<Restaurant[]>;
   results: Restaurant[] = [];
@@ -73,6 +75,7 @@ export class Tab1Page implements OnInit {
   logout() {
     this.authService.logout();
     this.router.navigate(['/']);
+    this.presentToast();
   }
 
   isUserLoggedIn() {
@@ -122,6 +125,16 @@ export class Tab1Page implements OnInit {
     }
 
     return array;
+  }
+
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: 'Logout successful! ✅',
+      duration: 1000,
+      position: 'bottom',
+    });
+
+    await toast.present();
   }
 
   handleRefresh(event) {
