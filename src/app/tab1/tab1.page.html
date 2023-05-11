@@ -64,10 +64,9 @@
   <ion-list class="restaurantList">
     <a *ngFor="let result of dataArray || results">
       <ion-card class="card" [routerLink]="['./', result.id]">
-        <img
-          alt="Image of restaurant"
-          src="https://ionicframework.com/docs/img/demos/card-media.png"
-        />
+        <div>
+          <img alt="Image of restaurant" [src]="result.img" />
+        </div>
         <ion-card-header>
           <ion-card-title>{{ result.title }}</ion-card-title>
           <ion-card-subtitle>
