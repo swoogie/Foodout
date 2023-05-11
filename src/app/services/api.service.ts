@@ -16,25 +16,31 @@ export class ApiService {
   users: User[] = [];
 
   getRestaurants(): Observable<Restaurant[]> {
-    return this.http.get<Restaurant[]>('http://localhost:3000/restaurants');
+    return this.http.get<Restaurant[]>(
+      'https://foodoutapi.onrender.com/restaurants'
+    );
   }
 
   get2Restaurants(pageNum: number): Observable<Restaurant[]> {
     return this.http.get<Restaurant[]>(
-      `http://localhost:3000/restaurants?_page=${pageNum}&_limit=3`
+      `https://foodoutapi.onrender.com/restaurants?_page=${pageNum}&_limit=3`
     );
   }
 
   getRestaurantById(id: string): Observable<Restaurant> {
-    return this.http.get<Restaurant>(`http://localhost:3000/restaurants/${id}`);
+    return this.http.get<Restaurant>(
+      `https://foodoutapi.onrender.com/restaurants/${id}`
+    );
   }
 
   getUsers(): Observable<User[]> {
-    return this.http.get<User[]>('http://localhost:3000/users');
+    return this.http.get<User[]>('https://foodoutapi.onrender.com/users');
   }
 
   getUserByEmail(email: string): Observable<User> {
-    return this.http.get<User>(`http://localhost:3000/users?email=${email}`);
+    return this.http.get<User>(
+      `https://foodoutapi.onrender.com/users?email=${email}`
+    );
   }
 
   updateUserEmail(id: number, newEmail: string): Observable<any> {
@@ -44,7 +50,10 @@ export class ApiService {
           ...user,
           email: newEmail,
         };
-        return this.http.put(`http://localhost:3000/users/${id}`, updatedUser);
+        return this.http.put(
+          `https://foodoutapi.onrender.com/users/${id}`,
+          updatedUser
+        );
       })
     );
   }
@@ -56,18 +65,21 @@ export class ApiService {
           ...user,
           password: newPassword,
         };
-        return this.http.put(`http://localhost:3000/users/${id}`, updatedUser);
+        return this.http.put(
+          `https://foodoutapi.onrender.com/users/${id}`,
+          updatedUser
+        );
       })
     );
   }
 
   getUserById(id: number): Observable<User> {
-    return this.http.get<User>(`http://localhost:3000/users/${id}`);
+    return this.http.get<User>(`https://foodoutapi.onrender.com/users/${id}`);
   }
 
   getFoodByRestaurantId(id: string): Observable<Food[]> {
     return this.http.get<Food[]>(
-      `http://localhost:3000/food?restaurant_id=${id}`
+      `https://foodoutapi.onrender.com/food?restaurant_id=${id}`
     );
   }
 
@@ -77,10 +89,12 @@ export class ApiService {
       userId: userId,
       order: data,
     };
-    return this.http.post('http://localhost:3000/orders', newOrder);
+    return this.http.post('https://foodoutapi.onrender.com/orders', newOrder);
   }
 
   getUserOrders(id: number): Observable<any> {
-    return this.http.get(`http://localhost:3000/orders/?userId=${id}`);
+    return this.http.get(
+      `https://foodoutapi.onrender.com/orders/?userId=${id}`
+    );
   }
 }
