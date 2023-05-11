@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { find, map, Observable, of } from 'rxjs';
+import { find, map, Observable, of, switchMap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Restaurant } from '../interfaces/restaurant';
 import { User } from '../interfaces/user';
@@ -37,7 +37,19 @@ export class ApiService {
     return this.http.get<User>(`http://localhost:3000/users?email=${email}`);
   }
 
-  getUserById(id: string): Observable<User> {
+  updateUserEmail(id: number, newEmail: string): Observable<any> {
+    return this.getUserById(id).pipe(
+      switchMap((user) => {
+        const updatedUser = {
+          ...user,
+          email: newEmail,
+        };
+        return this.http.put(`http://localhost:3000/users/${id}`, updatedUser);
+      })
+    );
+  }
+
+  getUserById(id: number): Observable<User> {
     return this.http.get<User>(`http://localhost:3000/users/${id}`);
   }
 

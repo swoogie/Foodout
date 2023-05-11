@@ -1,6 +1,19 @@
 .logout {
+  margin-top: 40px;
   display:flex;
   align-items: flex-end;
   justify-content: center;
-  height: 80%;
+}
+
+.changePass {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  height: 10%;
+}
+
+.update {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
 }

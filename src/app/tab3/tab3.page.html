@@ -18,11 +18,59 @@
   </ion-item>
   <ion-item>
     <ion-label>Email: {{ yourEmail }}</ion-label>
-    <ion-button>Change</ion-button>
+    <ion-button
+      shape="round"
+      (click)="changeEmail ? changeEmail = false : changeEmail = true"
+      ><ion-icon name="create-outline"></ion-icon
+    ></ion-button>
   </ion-item>
-  <ion-item>
-    <ion-button>Change password</ion-button>
-  </ion-item>
+  <div *ngIf="changeEmail">
+    <form [formGroup]="emailChange" (ngSubmit)="updateEmail()">
+      <ion-item>
+        <ion-input
+          type="email"
+          label="New Email"
+          labelPlacement="floating"
+          errorText="Invalid email"
+          formControlName="email"
+          required
+        ></ion-input>
+      </ion-item>
+      <div class="update">
+        <ion-button type="submit">Update</ion-button>
+      </div>
+    </form>
+  </div>
+  <div class="changePass">
+    <ion-button (click)="changePass ? changePass = false : changePass = true"
+      >Change password</ion-button
+    >
+  </div>
+  <div *ngIf="changePass">
+    <form [formGroup]="passwordChange" (ngSubmit)="updatePass()">
+      <ion-item>
+        <ion-input
+          label="Password"
+          labelPlacement="floating"
+          type="password"
+          formControlName="password"
+          errorText="Must be at least 4 characters long"
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input
+          label="Repeat Password"
+          labelPlacement="floating"
+          type="password"
+          errorText="Passwords must match"
+          formControlName="repeatPassword"
+        ></ion-input>
+      </ion-item>
+      <div class="update">
+        <ion-button type="submit">Update</ion-button>
+      </div>
+    </form>
+  </div>
   <div class="logout">
     <ion-button color="danger" (click)="logout()">Log out</ion-button>
   </div>
