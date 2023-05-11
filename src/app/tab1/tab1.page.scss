@@ -29,6 +29,12 @@ ion-item-divider {
 .companyLogo {
   margin-left: 10px;
   border-radius: 14%;
+  ion-icon {
+    margin-left: 5px;
+    margin-top: 10px;
+    height: 30px;
+    width: 30px;
+  }
 }
 
 .alignBottomButton{

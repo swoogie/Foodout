@@ -6,6 +6,7 @@ import { CartService } from '../services/cart.service';
 import { Cart } from '../interfaces/cart';
 import { ApiService } from '../services/api.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-checkout',
@@ -18,7 +19,8 @@ export class CheckoutPage implements OnInit {
   constructor(
     private cartService: CartService,
     private apiService: ApiService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
   cart: Cart[];
 
@@ -31,14 +33,17 @@ export class CheckoutPage implements OnInit {
   }
 
   postOrder() {
-    this.apiService.postOrder(this.cart).subscribe(
-      (response) => {
-        this.router.navigate(['/success']);
-      },
-      (error) => {
-        console.error('Server error:', error);
-      }
-    );
+    const userEmail = this.authService.getUser().email;
+    this.apiService.getUserByEmail(userEmail).subscribe((users) => {
+      this.apiService.postOrder(users[0].id, this.cart).subscribe({
+        next: (response) => {
+          this.router.navigate(['/success']);
+        },
+        error: (error) => {
+          console.error('Server error:', error);
+        },
+      });
+    });
   }
 
   goBack(): void {

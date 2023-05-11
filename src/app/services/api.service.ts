@@ -71,15 +71,16 @@ export class ApiService {
     );
   }
 
-  postOrder(data: any): Observable<any> {
+  postOrder(userId: number, data: any): Observable<any> {
     const newOrder: Order = {
       id: null,
+      userId: userId,
       order: data,
     };
     return this.http.post('http://localhost:3000/orders', newOrder);
   }
 
-  getUserOrders(): Observable<any> {
-    return this.http.get('http://localhost:3000/orders');
+  getUserOrders(id: number): Observable<any> {
+    return this.http.get(`http://localhost:3000/orders/?userId=${id}`);
   }
 }
