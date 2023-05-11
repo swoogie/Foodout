@@ -13,6 +13,8 @@ import { Router, RouterModule } from '@angular/router';
 })
 export class Tab3Page {
   yourEmail: string;
+  yourName: any;
+  yourSurname: any;
   constructor(private auth: AuthService, private router: Router) {
     this.yourEmail = this.auth.getUser().email;
   }

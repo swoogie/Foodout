@@ -1,7 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  PatternValidator,
+  ReactiveFormsModule,
+  ValidationErrors,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
+import { IonInput, IonicModule } from '@ionic/angular';
 import { PostService } from '../services/post.service';
 import { User } from '../interfaces/user';
 import { Router } from '@angular/router';
@@ -23,8 +33,27 @@ export class RegistrationPage implements OnInit {
     private router: Router,
     private authService: AuthService
   ) {}
+  postForm = formBuilder.group(
+    {
+      id: [],
+      firstName: ['', [Validators.required, Validators.pattern(/^[a-zA-Z]+/)]],
+      lastName: ['', [Validators.required, Validators.pattern(/^[a-zA-Z]+/)]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(4)]],
+      repeatPassword: ['', [Validators.required]],
+    },
+    {
+      updateOn: 'blur',
+    }
+  );
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.postForm.valueChanges.subscribe(() => {
+      if (this.password.value !== this.repeatPassword.value) {
+        this.repeatPassword.setErrors({ passwordMismatch: true });
+      }
+    });
+  }
 
   isUserLoggedIn() {
     if (this.authService.getUser()) {
@@ -37,28 +66,30 @@ export class RegistrationPage implements OnInit {
   goBack() {
     this.router.navigate(['/tabs/login']);
   }
-  postForm = formBuilder.group(
-    {
-      id: [],
-      firstName: [''],
-      lastName: [''],
-      email: [''],
-      password: [''],
-      repeatPassword: [''],
-    },
-    { updateOn: 'blur' }
-  );
 
   addUser() {
-    console.log(this.authService.getUser());
-    this.postService
-      .addNewUser(this.postForm.value as User)
-      .subscribe((response) => {
-        this.router.navigate(['/tabs/yourProfile']);
-      });
+    if (this.postForm.valid) {
+      console.log('form is valid');
+      this.postService
+        .addNewUser(this.postForm.value as User)
+        .subscribe((response) => {
+          this.router.navigate(['/tabs/login']);
+        });
+    } else {
+      console.log('form is not valid');
+    }
   }
 
   get password() {
     return this.postForm.get('password');
+  }
+  get firstName() {
+    return this.postForm.get('firstName');
+  }
+  get lastName() {
+    return this.postForm.get('lastName');
+  }
+  get repeatPassword() {
+    return this.postForm.get('repeatPassword');
   }
 }

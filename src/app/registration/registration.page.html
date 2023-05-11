@@ -11,51 +11,48 @@
 <ion-content>
   <div class="form-div">
     <form [formGroup]="postForm" (ngSubmit)="addUser()">
-      <ion-item lines="full" class="input">
-        <ion-input
-          label="First Name"
-          labelPlacement="floating"
-          type="text"
-          formControlName="firstName"
-          required
-        ></ion-input>
-      </ion-item>
-      <ion-item lines="full" class="input">
-        <ion-input
-          label="Last Name"
-          labelPlacement="floating"
-          type="text"
-          formControlName="lastName"
-          required
-        ></ion-input>
-      </ion-item>
-      <ion-item lines="full" class="input">
-        <ion-input
-          label="Email"
-          labelPlacement="floating"
-          type="text"
-          formControlName="email"
-          required
-        ></ion-input>
-      </ion-item>
-      <ion-item lines="full" class="input">
-        <ion-input
-          label="Password"
-          labelPlacement="floating"
-          type="password"
-          formControlName="password"
-          required
-        ></ion-input>
-      </ion-item>
-      <ion-item *ngIf="password.value" lines="full" class="input">
-        <ion-input
-          label="Repeat Password"
-          labelPlacement="floating"
-          type="password"
-          formControlName="repeatPassword"
-          required
-        ></ion-input>
-      </ion-item>
+      <ion-input
+        label="First Name"
+        labelPlacement="floating"
+        type="text"
+        formControlName="firstName"
+        errorText="Invalid name"
+      ></ion-input>
+
+      <ion-input
+        label="Last Name"
+        labelPlacement="floating"
+        type="text"
+        formControlName="lastName"
+        errorText="Invalid name"
+      ></ion-input>
+
+      <ion-input
+        type="email"
+        label="Email"
+        labelPlacement="floating"
+        type="text"
+        formControlName="email"
+        errorText="Invalid email"
+      ></ion-input>
+
+      <ion-input
+        label="Password"
+        labelPlacement="floating"
+        type="password"
+        formControlName="password"
+        errorText="Must be at least 4 characters long"
+      ></ion-input>
+
+      <ion-input
+        *ngIf="password.value"
+        label="Repeat Password"
+        labelPlacement="floating"
+        type="password"
+        errorText="Passwords must match"
+        formControlName="repeatPassword"
+      ></ion-input>
+
       <div class="sign-in">
         <ion-row>
           <ion-col>

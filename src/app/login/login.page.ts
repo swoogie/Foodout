@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { AlertController, IonicModule } from '@ionic/angular';
 import { ApiService } from '../services/api.service';
 import { Router } from '@angular/router';
@@ -19,10 +24,8 @@ const formBuilder = new FormBuilder().nonNullable;
   standalone: true,
   imports: [IonicModule, CommonModule, FormsModule, ReactiveFormsModule],
 })
-export class LoginPage {
+export class LoginPage implements OnInit {
   constructor(
-    private storage: Storage,
-    private apiService: ApiService,
     private router: Router,
     private alertCtrl: AlertController,
     private authService: AuthService
@@ -30,6 +33,20 @@ export class LoginPage {
   data$!: Observable<User[]>;
   users: User[] = [];
   userExist: boolean;
+  incorrect: boolean = false;
+  loginForm = formBuilder.group(
+    {
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]],
+    },
+    { updateOn: 'change' }
+  );
+
+  ngOnInit(): void {
+    this.loginForm.valueChanges.subscribe(() => {
+      this.incorrect = false;
+    });
+  }
 
   navigateToRegistrationPage() {
     this.router.navigateByUrl('/tabs/registration');
@@ -39,11 +56,6 @@ export class LoginPage {
     this.router.navigateByUrl('/');
   }
 
-  loginForm = formBuilder.group({
-    email: '',
-    password: '',
-  });
-
   signInUser() {
     const email = this.loginForm.controls.email.value;
     const password = this.loginForm.controls.password.value;
@@ -51,17 +63,10 @@ export class LoginPage {
       next: () => {
         if (this.authService.getUser()) {
           this.router.navigate(['/tabs/yourProfile']);
-        } else {
         }
       },
       error: () => {
-        this.alertCtrl
-          .create({
-            header: 'Login failed',
-            message: 'Wrong credentials, try again',
-            buttons: ['OK'],
-          })
-          .then((alert) => alert.present());
+        this.incorrect = true;
       },
     });
   }

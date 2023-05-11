@@ -67,7 +67,7 @@ export class Tab1Page implements OnInit {
   }
 
   navigateToLoginPage() {
-    this.router.navigate(['/login']);
+    this.router.navigate(['/tabs/login']);
   }
 
   logout() {

@@ -11,24 +11,20 @@
 <ion-content>
   <div class="form-div">
     <form [formGroup]="loginForm" (ngSubmit)="signInUser()">
-      <ion-item lines="full" class="input">
-        <ion-input
-          label="Email"
-          labelPlacement="floating"
-          type="text"
-          formControlName="email"
-          required
-        ></ion-input>
-      </ion-item>
-      <ion-item lines="full" class="input">
-        <ion-input
-          label="Password"
-          labelPlacement="floating"
-          type="password"
-          formControlName="password"
-          required
-        ></ion-input>
-      </ion-item>
+      <ion-input
+        label="Email"
+        labelPlacement="floating"
+        type="text"
+        formControlName="email"
+        errorText="Email invalid"
+      ></ion-input>
+      <ion-input
+        label="Password"
+        labelPlacement="floating"
+        type="password"
+        formControlName="password"
+        errorText="Password required"
+      ></ion-input>
       <div class="sign-in">
         <ion-row>
           <ion-col>
@@ -46,6 +42,13 @@
             </ion-row>
           </ion-col>
         </ion-row>
+        <div *ngIf="incorrect" class="incorrect">
+          <ion-row>
+            <ion-col>
+              <p>Incorrect email or password</p>
+            </ion-col>
+          </ion-row>
+        </div>
       </div>
     </form>
   </div>

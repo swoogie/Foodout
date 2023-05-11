@@ -102,6 +102,14 @@
       "email": "qwer@qwer.com",
       "password": "qwer",
       "repeatPassword": "qwer"
+    },
+    {
+      "id": 5,
+      "firstName": "qwer",
+      "lastName": "qwer",
+      "email": "qwer@qwer",
+      "password": "qwer",
+      "repeatPassword": "qwer"
     }
   ],
   "food": [
