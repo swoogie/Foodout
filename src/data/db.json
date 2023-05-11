@@ -5,7 +5,7 @@
       "title": "Pizza restaurant",
       "reviewCount": 14,
       "rating": 4.7,
-      "img": "",
+      "img": "./assets/photos/pizza1.jpg",
       "distance": "0.85 miles away",
       "tags": [
         "Italian",
@@ -23,37 +23,43 @@
       "id": 2,
       "title": "Sushi restaurant",
       "reviewCount": 11,
-      "rating": 4
+      "rating": 4,
+      "img": "./assets/photos/sushi1.jpeg"
     },
     {
       "id": 3,
       "title": "Noodle restaurant",
       "reviewCount": 5,
-      "rating": 4.3
+      "rating": 4.3,
+      "img": "./assets/photos/noodles1.jpg"
     },
     {
       "id": 4,
       "title": "Curry restaurant",
       "reviewCount": 7,
-      "rating": 3.9
+      "rating": 3.9,
+      "img": "./assets/photos/curry1.jpg"
     },
     {
       "id": 5,
       "title": "Burger restaurant",
       "reviewCount": 3,
-      "rating": 2.5
+      "rating": 2.5,
+      "img": "./assets/photos/burger1.jpg"
     },
     {
       "id": 6,
       "title": "Kebab restaurant",
       "reviewCount": 12,
-      "rating": 4.6
+      "rating": 4.6,
+      "img": "./assets/photos/kebab1.jpg"
     },
     {
       "id": 7,
       "title": "Chicken restaurant",
       "reviewCount": 8,
-      "rating": 4.3
+      "rating": 4.3,
+      "img": "./assets/photos/chicken1.jpg"
     }
   ],
   "comments": [
