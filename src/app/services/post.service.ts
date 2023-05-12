@@ -10,6 +10,6 @@ export class PostService {
   constructor(private http: HttpClient) { }
 
   addNewUser(user: User) {
-    return this.http.post<User>('http://localhost:3000/users', user);
+    return this.http.post<User>('https://foodoutapi.onrender.com/users', user);
   }
 }
