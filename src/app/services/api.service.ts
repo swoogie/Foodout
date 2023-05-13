@@ -21,7 +21,7 @@ export class ApiService {
     );
   }
 
-  get2Restaurants(pageNum: number): Observable<Restaurant[]> {
+  get3Restaurants(pageNum: number): Observable<Restaurant[]> {
     return this.http.get<Restaurant[]>(
       `https://foodoutapi.onrender.com/restaurants?_page=${pageNum}&_limit=3`
     );

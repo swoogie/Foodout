@@ -62,7 +62,7 @@
     #searchbar
   ></ion-searchbar>
   <ion-list class="restaurantList">
-    <a *ngFor="let result of dataArray || results">
+    <a *ngFor="let result of results">
       <ion-card class="card" [routerLink]="['./', result.id]">
         <div>
           <img alt="Image of restaurant" [src]="result.img" />

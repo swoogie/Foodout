@@ -45,18 +45,11 @@ export class Tab1Page implements OnInit {
   @ViewChild('infScroll') infScroll: IonInfiniteScroll;
   dataArray: Restaurant[] = [];
   ngOnInit() {
-    this.data$ = this.apiService.get2Restaurants(1);
-    this.data$.pipe().subscribe((e) => {
-      this.dataArray = e;
+    this.data$ = this.apiService.get3Restaurants(1);
+    this.data$.pipe().subscribe((res) => {
+      this.dataArray = res;
+      this.results = [...this.dataArray];
     });
-    this.results = [...this.dataArray];
-  }
-
-  filterItemsByTitle(event: Event): void {
-    const query = (<HTMLInputElement>event.target).value.toLowerCase();
-    this.results = this.dataArray.filter(
-      (d) => d.title.toLowerCase().indexOf(query) > -1
-    );
   }
 
   ionViewWillEnter() {
@@ -90,7 +83,6 @@ export class Tab1Page implements OnInit {
   maxPosY = 0;
   onContentScroll(event) {
     this.currposY = event.detail.scrollTop;
-    // console.log(this.posY);
     if (this.maxPosY < this.currposY) {
       this.maxPosY = this.currposY;
       this.renderer.setStyle(this.header['el'], 'top', '-76px');
@@ -110,14 +102,10 @@ export class Tab1Page implements OnInit {
   shuffle(array) {
     let currentIndex = array.length,
       randomIndex;
-
-    // While there remain elements to shuffle.
     while (currentIndex != 0) {
-      // Pick a remaining element.
       randomIndex = Math.floor(Math.random() * currentIndex);
       currentIndex--;
 
-      // And swap it with the current element.
       [array[currentIndex], array[randomIndex]] = [
         array[randomIndex],
         array[currentIndex],
@@ -149,8 +137,9 @@ export class Tab1Page implements OnInit {
   pagenum: number = 2;
   isEmpty: boolean;
   loadingComplete: boolean = false;
+  beforeSearch: Restaurant[] = [];
   async onIonInfinite(ev) {
-    this.smolpage$ = this.apiService.get2Restaurants(this.pagenum);
+    this.smolpage$ = this.apiService.get3Restaurants(this.pagenum);
     this.smolpage$
       .pipe(
         tap((arr) => {
@@ -166,6 +155,7 @@ export class Tab1Page implements OnInit {
     setTimeout(() => {
       if (!this.isEmpty) {
         this.dataArray = [...this.dataArray, ...this.smolpageArr];
+        this.results = this.dataArray;
         this.pagenum++;
       }
       this.infScroll.disabled = true;
@@ -179,6 +169,19 @@ export class Tab1Page implements OnInit {
     }, 500);
   }
 
+  filterItemsByTitle(event: Event): void {
+    const query = (<HTMLInputElement>event.target).value.toLowerCase();
+    if (query) {
+      this.infScroll.disabled = true;
+      this.results = this.dataArray.filter(
+        (restaurant) => restaurant.title.toLowerCase().indexOf(query) > -1
+      );
+    } else {
+      this.results = this.dataArray;
+      this.infScroll.disabled = false;
+    }
+  }
+
   getCartCount(): number {
     return this.cartService.getCartItemCount().getValue();
   }
@@ -186,11 +189,4 @@ export class Tab1Page implements OnInit {
   getCartItems(): Cart[] {
     return this.cartService.getCart();
   }
-
-  // public results = [...this.data];
-
-  // handleChange(event): void {
-  //   const query = event.target.value.toLowerCase();
-  //   this.results = this.data.filter((d) => d.rest.toLowerCase().indexOf(query) > -1);
-  // }
 }
