@@ -13,9 +13,9 @@
       <ion-title size="large">My orders</ion-title>
     </ion-toolbar>
   </ion-header>
-  <div *ngIf="loaded">
+  <div *ngIf="loaded && !noOrders">
     <ion-list lines="full" *ngFor="let order of userOrders; let i = index">
-      <ion-item details="true" class="item-div">
+      <ion-item details="true">
         <ion-label>
           <ion-list-header style="padding-left: 0px">
             <h2>Order no. {{ i + 1 }}</h2>
@@ -29,6 +29,16 @@
             <p>Total: {{order.total | currency: 'EUR'}}</p>
           </div>
         </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <div *ngIf="loaded && noOrders">
+    <ion-list lines="none">
+      <ion-item details="true">
+        <ion-list-header>
+          <h2>You haven't made any orders yet!</h2>
+        </ion-list-header>
       </ion-item>
     </ion-list>
   </div>

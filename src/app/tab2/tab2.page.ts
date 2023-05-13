@@ -17,7 +17,8 @@ export class Tab2Page {
   userId: number;
   loaded: boolean = false;
   total: number;
-  userOrders: any[];
+  noOrders: boolean = true;
+  userOrders: any[] = [];
   ionViewWillEnter() {
     this.loaded = false;
     const userEmail = this.auth.getUser().email;
@@ -37,6 +38,7 @@ export class Tab2Page {
           orderList.total = this.total;
         });
         this.userOrders = userOrders;
+        this.noOrders = this.userOrders.length < 1;
         this.loaded = true;
       });
   }
@@ -48,26 +50,8 @@ export class Tab2Page {
   constructor(private api: ApiService, private auth: AuthService) {}
 
   handleRefresh($event) {
-    const userEmail = this.auth.getUser().email;
     setTimeout(() => {
-      this.api
-        .getUserByEmail(userEmail)
-        .pipe(
-          switchMap((users) => {
-            return this.api.getUserOrders(users[0].id);
-          })
-        )
-        .subscribe((userOrders) => {
-          userOrders.forEach((orderList) => {
-            this.total = orderList.order.reduce(
-              (acc, item) => acc + item.price * item.amount,
-              0
-            );
-            orderList.total = this.total;
-          });
-          this.userOrders = userOrders;
-          this.loaded = true;
-        });
+      this.ionViewWillEnter();
       $event.target.complete();
     }, 300);
   }
