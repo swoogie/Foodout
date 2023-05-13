@@ -1,4 +1,11 @@
 .order-details {
-  display:flex;
-  justify-content: space-between;
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 20px;
+
+  & > :nth-child(2n),
+  & > :nth-child(3n) {
+    grid-column: span 1;
+    text-align: right;
+  }
 }

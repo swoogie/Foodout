@@ -13,19 +13,54 @@
       <ion-title size="large">My orders</ion-title>
     </ion-toolbar>
   </ion-header>
-  <div>
-    <ion-list
-      lines="full"
-      *ngFor="let order of userOrders | async; let i = index"
-    >
+  <div *ngIf="loaded">
+    <ion-list lines="full" *ngFor="let order of userOrders; let i = index">
       <ion-item details="true" class="item-div">
         <ion-label>
-          <h3>Order no. {{ i + 1 }}</h3>
+          <ion-list-header style="padding-left: 0px">
+            <h2>Order no. {{ i + 1 }}</h2>
+          </ion-list-header>
           <div class="order-details" *ngFor="let item of order.order">
             <p>{{item.name}}</p>
             <p>Quantity: {{item.amount}}</p>
             <p>{{item.price | currency: 'EUR'}}</p>
           </div>
+          <div>
+            <p>Total: {{order.total | currency: 'EUR'}}</p>
+          </div>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <div *ngIf="!loaded">
+    <ion-list lines="full">
+      <ion-list-header>
+        <ion-skeleton-text
+          [animated]="true"
+          style="width: 80px"
+        ></ion-skeleton-text>
+      </ion-list-header>
+      <ion-item>
+        <ion-label>
+          <h3>
+            <ion-skeleton-text
+              [animated]="true"
+              style="width: 80%"
+            ></ion-skeleton-text>
+          </h3>
+          <p>
+            <ion-skeleton-text
+              [animated]="true"
+              style="width: 80%"
+            ></ion-skeleton-text>
+          </p>
+          <p>
+            <ion-skeleton-text
+              [animated]="true"
+              style="width: 20%"
+            ></ion-skeleton-text>
+          </p>
         </ion-label>
       </ion-item>
     </ion-list>

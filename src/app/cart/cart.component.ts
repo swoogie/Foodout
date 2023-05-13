@@ -17,7 +17,7 @@ export class CartComponent {
   @Input() cart: Cart[];
   total: number = 0;
   constructor(private cartService: CartService) {}
-  // ngOnInit() {}
+
   getTotal(): number {
     return this.cart.reduce((acc, item) => acc + item.price * item.amount, 0);
   }

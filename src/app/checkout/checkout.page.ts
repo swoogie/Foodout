@@ -38,6 +38,7 @@ export class CheckoutPage implements OnInit {
       this.apiService.postOrder(users[0].id, this.cart).subscribe({
         next: (response) => {
           this.router.navigate(['/success']);
+          this.cartService.clearCart();
         },
         error: (error) => {
           console.error('Server error:', error);

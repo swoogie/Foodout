@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { ApiService } from '../services/api.service';
-import { Observable } from 'rxjs';
+import { Observable, switchMap } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../services/auth.service';
+import { Order } from '../interfaces/order';
 
 @Component({
   selector: 'app-tab2',
@@ -14,24 +15,60 @@ import { AuthService } from '../services/auth.service';
 })
 export class Tab2Page {
   userId: number;
-
+  loaded: boolean = false;
+  total: number;
+  userOrders: any[];
   ionViewWillEnter() {
+    this.loaded = false;
     const userEmail = this.auth.getUser().email;
-    this.api.getUserByEmail(userEmail).subscribe((users) => {
-      this.userId = users[0].id;
-      this.userOrders = this.api.getUserOrders(users[0].id);
-    });
+    this.api
+      .getUserByEmail(userEmail)
+      .pipe(
+        switchMap((users) => {
+          return this.api.getUserOrders(users[0].id);
+        })
+      )
+      .subscribe((userOrders) => {
+        userOrders.forEach((orderList) => {
+          this.total = orderList.order.reduce(
+            (acc, item) => acc + item.price * item.amount,
+            0
+          );
+          orderList.total = this.total;
+        });
+        this.userOrders = userOrders;
+        this.loaded = true;
+      });
+  }
+
+  ionViewDidLeave() {
+    this.userOrders = null;
   }
 
   constructor(private api: ApiService, private auth: AuthService) {}
-  userOrders: Observable<any>;
-
-  ngOnInit() {}
 
   handleRefresh($event) {
+    const userEmail = this.auth.getUser().email;
     setTimeout(() => {
-      this.userOrders = this.api.getUserOrders(this.userId);
+      this.api
+        .getUserByEmail(userEmail)
+        .pipe(
+          switchMap((users) => {
+            return this.api.getUserOrders(users[0].id);
+          })
+        )
+        .subscribe((userOrders) => {
+          userOrders.forEach((orderList) => {
+            this.total = orderList.order.reduce(
+              (acc, item) => acc + item.price * item.amount,
+              0
+            );
+            orderList.total = this.total;
+          });
+          this.userOrders = userOrders;
+          this.loaded = true;
+        });
       $event.target.complete();
-    }, 500);
+    }, 300);
   }
 }

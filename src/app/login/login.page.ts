@@ -63,8 +63,7 @@ export class LoginPage implements OnInit {
       next: () => {
         if (this.authService.getUser()) {
           const route =
-            this.activatedRoute.snapshot.queryParams['route'] || '/';
-          console.log(route);
+            this.activatedRoute.snapshot.queryParams['route'] || '/restaurants';
           this.router.navigate([`/tabs/${route}`]);
         }
       },
