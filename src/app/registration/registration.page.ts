@@ -43,7 +43,7 @@ export class RegistrationPage implements OnInit {
       repeatPassword: ['', [Validators.required]],
     },
     {
-      updateOn: 'blur',
+      updateOn: 'change',
     }
   );
 

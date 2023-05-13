@@ -26,7 +26,9 @@ export class AuthGuard implements CanActivate {
     private toastController: ToastController
   ) {}
 
-  canActivate():
+  canActivate(
+    route: ActivatedRouteSnapshot
+  ):
     | Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree>
     | boolean
@@ -35,7 +37,9 @@ export class AuthGuard implements CanActivate {
       take(1),
       map((user) => {
         if (!user) {
-          this.router.navigateByUrl('/tabs/login');
+          this.router.navigate(['/tabs/login'], {
+            queryParams: { route: route.data['route'] },
+          });
           this.presentToast();
           return false;
         } else {

@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { AlertController, IonicModule } from '@ionic/angular';
 import { ApiService } from '../services/api.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../interfaces/user';
 import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth.service';
@@ -27,7 +27,7 @@ const formBuilder = new FormBuilder().nonNullable;
 export class LoginPage implements OnInit {
   constructor(
     private router: Router,
-    private alertCtrl: AlertController,
+    private activatedRoute: ActivatedRoute,
     private authService: AuthService
   ) {}
   data$!: Observable<User[]>;
@@ -62,7 +62,10 @@ export class LoginPage implements OnInit {
     this.authService.login(email, password).subscribe({
       next: () => {
         if (this.authService.getUser()) {
-          this.router.navigate(['/tabs/yourProfile']);
+          const route =
+            this.activatedRoute.snapshot.queryParams['route'] || '/';
+          console.log(route);
+          this.router.navigate([`/tabs/${route}`]);
         }
       },
       error: () => {
