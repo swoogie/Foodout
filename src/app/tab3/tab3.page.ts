@@ -1,11 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { AuthService } from '../services/auth.service';
-import { take } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
-import { runInThisContext } from 'vm';
-import { AlertController, ToastController } from '@ionic/angular';
+import { ToastController } from '@ionic/angular';
 import { ApiService } from '../services/api.service';
 import {
   FormsModule,
@@ -66,6 +64,9 @@ export class Tab3Page {
 
   logout() {
     this.auth.logout();
+    this.yourName = null;
+    this.yourSurname = null;
+    this.userId = null;
   }
   updatePass() {
     if (this.password.value !== this.repeatPassword.value) {

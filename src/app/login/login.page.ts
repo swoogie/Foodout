@@ -34,6 +34,7 @@ export class LoginPage implements OnInit {
   users: User[] = [];
   userExist: boolean;
   incorrect: boolean = false;
+  loading: boolean = false;
   loginForm = formBuilder.group(
     {
       email: ['', [Validators.required, Validators.email]],
@@ -57,18 +58,24 @@ export class LoginPage implements OnInit {
   }
 
   signInUser() {
+    this.loading = true;
     const email = this.loginForm.controls.email.value;
     const password = this.loginForm.controls.password.value;
     this.authService.login(email, password).subscribe({
       next: () => {
-        if (this.authService.getUser()) {
-          const route =
-            this.activatedRoute.snapshot.queryParams['route'] || '/restaurants';
-          this.router.navigate([`/tabs/${route}`]);
-        }
+        this.authService.user.subscribe((res) => {
+          if (res) {
+            this.loading = false;
+            const route =
+              this.activatedRoute.snapshot.queryParams['route'] ||
+              '/restaurants';
+            this.router.navigate([`/tabs/${route}`]);
+          }
+        });
       },
       error: () => {
         this.incorrect = true;
+        this.loading = false;
       },
     });
   }

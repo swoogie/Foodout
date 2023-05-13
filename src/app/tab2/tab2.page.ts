@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { ApiService } from '../services/api.service';
-import { Observable, switchMap } from 'rxjs';
+import { Observable, concatMap, switchMap } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../services/auth.service';
 import { Order } from '../interfaces/order';
@@ -25,7 +25,7 @@ export class Tab2Page {
     this.api
       .getUserByEmail(userEmail)
       .pipe(
-        switchMap((users) => {
+        concatMap((users) => {
           return this.api.getUserOrders(users[0].id);
         })
       )

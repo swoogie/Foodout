@@ -8,13 +8,11 @@ import { KJUR } from 'jsrsasign';
 import { ApiService } from './api.service';
 import {
   BehaviorSubject,
-  concatMap,
   from,
   map,
   Observable,
   of,
   switchMap,
-  take,
   throwError,
 } from 'rxjs';
 
@@ -73,7 +71,7 @@ export class AuthService {
 
           let decoded = this.jwtHelper.decodeToken(token);
           this.userData.next(decoded);
-          return of(this.storage.set(TOKEN_KEY, token));
+          return from(this.storage.set(TOKEN_KEY, token));
         } else {
           return throwError(() => `Invalid email or password`);
         }
