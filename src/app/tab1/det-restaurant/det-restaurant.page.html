@@ -26,6 +26,7 @@
 </ion-header>
 
 <ion-content
+  *ngIf="(data$ | async) as data"
   [fullscreen]="true"
   scrollEvents="true"
   (ionScroll)="onScroll($event)"
@@ -36,7 +37,6 @@
     *ngIf="(data$ | async) as data"
     [style.background-image]="'url(' + data.img + ')'"
   ></div>
-  <!-- 'url(' + data$?.img + ')' -->
 
   <ion-header collapse="condense" class="ion-no-border">
     <ion-toolbar color="light">
@@ -96,9 +96,11 @@
     cannot be made once your order is received.
   </div>
 
-  <div slot="fixed">
+  <div class="swiper" slot="fixed">
     <swiper-container
-      [options]="opts"
+      slides-per-view="2"
+      a11y="false"
+      speed="200"
       *ngIf="food$"
       [ngClass]="{'slides-visible': categorySlidesVisible, 'slides-hidden': !categorySlidesVisible}"
     >
@@ -137,9 +139,6 @@
           <ion-col class="ion-align-self-center">
             <ion-icon name="add-outline" class="ion-padding-start"></ion-icon>
           </ion-col>
-          <!-- <ion-col size="4" class="border-bottom">
-			  <div class="meal-image" [style.background-image]="'url(' + meal.img + ')'"></div>
-			</ion-col> -->
         </ion-row>
       </ion-grid>
     </ion-item>

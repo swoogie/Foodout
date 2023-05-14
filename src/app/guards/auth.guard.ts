@@ -34,7 +34,6 @@ export class AuthGuard implements CanActivate {
     | boolean
     | UrlTree {
     return this.auth.user.pipe(
-      take(1),
       map((user) => {
         if (!user) {
           this.router.navigate(['/tabs/login'], {

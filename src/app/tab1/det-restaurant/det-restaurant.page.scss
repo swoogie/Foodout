@@ -5,3 +5,28 @@
 	height: 30vh;
 	will-change: transform;
 }
+
+swiper-container {
+  background: rgb(48, 48, 48);
+  box-shadow: 0px 1px 4px #020202;
+  ion-button {
+		height: 2em;
+	}
+}
+
+.active-category {
+	--background: var(--ion-color-primary);
+	--color: #fff;
+	--border-radius: 30px;
+}
+
+.slides-visible {
+	opacity: 1;
+	transition: 1s;
+}
+
+.slides-hidden {
+	opacity: 0;
+	transition: 1s;
+}
+

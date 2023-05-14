@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   CUSTOM_ELEMENTS_SCHEMA,
   Component,
   ElementRef,
@@ -9,7 +10,13 @@ import {
 } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonicModule, IonContent, IonList, AlertController } from '@ionic/angular';
+import {
+  IonicModule,
+  IonContent,
+  IonList,
+  AlertController,
+  ToastController,
+} from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { Restaurant } from 'src/app/interfaces/restaurant';
@@ -17,9 +24,10 @@ import { Observable } from 'rxjs';
 import { FabbuttonComponent } from '../../fabbutton/fabbutton.component';
 import { CartComponent } from '../../cart/cart.component';
 import { Food } from 'src/app/interfaces/food';
-import { register } from 'swiper/element/bundle';
+import { SwiperSlide, SwiperContainer, register } from 'swiper/element/bundle';
 import { Cart } from 'src/app/interfaces/cart';
 import { CartService } from 'src/app/services/cart.service';
+
 register();
 
 @Component({
@@ -36,10 +44,10 @@ register();
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class DetRestaurantPage implements OnInit {
+export class DetRestaurantPage implements OnInit, AfterViewInit {
   opts = {
     freeMode: true,
-    slidesPerView: 2.6,
+    slidesPerView: 10,
     slidesOffsetBefore: 30,
     slidesOffsetAfter: 100,
   };
@@ -55,6 +63,7 @@ export class DetRestaurantPage implements OnInit {
     private router: Router,
     private alertController: AlertController,
     private cartService: CartService,
+    private toastController: ToastController
   ) {}
   data$: Observable<Restaurant>;
   food$: Observable<Food[]>;
@@ -65,24 +74,31 @@ export class DetRestaurantPage implements OnInit {
     this.food$ = this.apiService.getFoodByRestaurantId(id);
   }
 
+  ngAfterViewInit(): void {
+    this.lists.changes.subscribe(() => {
+      this.listElements = this.lists.toArray();
+    });
+  }
+
   isElementInViewport(el) {
     const rect = el.getBoundingClientRect();
-
     return (
-      rect.top >= 0 &&
-      rect.bottom <=
+      rect.top - 150 >= 0 &&
+      rect.bottom - 150 <=
         (window.innerHeight || document.documentElement.clientHeight)
     );
   }
 
   onScroll(ev) {
     const offset = ev.detail.scrollTop;
-    this.categorySlidesVisible = offset > 500;
+    this.categorySlidesVisible = offset > 250;
+    const swiperEl: any = document.querySelector('swiper-container');
 
     for (let i = 0; i < this.listElements.length; i++) {
       const item = this.listElements[i].nativeElement;
       if (this.isElementInViewport(item)) {
         this.activeCategory = i;
+        swiperEl.swiper.slideTo(i);
         break;
       }
     }
@@ -92,28 +108,27 @@ export class DetRestaurantPage implements OnInit {
     this.router.navigate(['/']);
   }
 
-  public alertButtons = [
-    {
-      text: 'Continue',
-    },
+  toastButtons = [
     {
       text: 'To main page',
       handler: () => this.router.navigate(['/']),
-    }
-  ]
+    },
+  ];
 
   async addItemToCart(meal: Cart) {
     this.cartService.addProduct(meal);
-    const alert = await this.alertController.create({
-      message: `Added to Cart: ${meal.name}`,
-      buttons: this.alertButtons,
-    })
-    await alert.present();
+    const toast = await this.toastController.create({
+      message: `Added to cart: ${meal.name}`,
+      duration: 1000,
+      position: 'bottom',
+      buttons: this.toastButtons,
+    });
 
+    await toast.present();
   }
 
   selectCategory(index) {
-		const child = this.listElements[index].nativeElement;
-		this.content.scrollToPoint(0, child.offsetTop - 120, 1000);
-	}
+    const child = this.listElements[index].nativeElement;
+    this.content.scrollToPoint(0, child.offsetTop - 120, 200);
+  }
 }

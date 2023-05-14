@@ -10,23 +10,25 @@
       <ion-title size="large">My profile</ion-title>
     </ion-toolbar>
   </ion-header>
-  <ion-item>
-    <ion-label>Name: {{ yourName }}</ion-label>
-  </ion-item>
-  <ion-item>
-    <ion-label>Surname: {{ yourSurname }}</ion-label>
-  </ion-item>
-  <ion-item>
-    <ion-label>Email: {{ yourEmail }}</ion-label>
-    <ion-button
-      shape="round"
-      (click)="changeEmail ? changeEmail = false : changeEmail = true"
-      ><ion-icon name="create-outline"></ion-icon
-    ></ion-button>
-  </ion-item>
+  <ion-list lines="inset">
+    <ion-item>
+      <ion-label>Name: {{ yourName }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Surname: {{ yourSurname }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Email: {{ yourEmail }}</ion-label>
+      <ion-button
+        shape="round"
+        (click)="changeEmail ? changeEmail = false : changeEmail = true"
+        ><ion-icon name="create-outline"></ion-icon
+      ></ion-button>
+    </ion-item>
+  </ion-list>
   <div *ngIf="changeEmail">
     <form [formGroup]="emailChange" (ngSubmit)="updateEmail()">
-      <ion-item>
+      <ion-item lines="none">
         <ion-input
           type="email"
           label="New Email"
@@ -48,7 +50,7 @@
   </div>
   <div *ngIf="changePass">
     <form [formGroup]="passwordChange" (ngSubmit)="updatePass()">
-      <ion-item>
+      <ion-item lines="none">
         <ion-input
           label="Previous password"
           labelPlacement="floating"
@@ -57,7 +59,7 @@
           [errorText]="prevPassErr"
         ></ion-input>
       </ion-item>
-      <ion-item>
+      <ion-item lines="none">
         <ion-input
           label="Password"
           labelPlacement="floating"
@@ -66,7 +68,7 @@
           errorText="Must be at least 4 characters long"
         ></ion-input>
       </ion-item>
-      <ion-item>
+      <ion-item lines="none">
         <ion-input
           label="Repeat Password"
           labelPlacement="floating"
