@@ -2,9 +2,9 @@ import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: 'io.ionic.starter',
-  appName: 'FoodOut',
+  appName: 'Food application Test',
   webDir: 'www',
-  bundledWebRuntime: false,
+  bundledWebRuntime: false
 };
 
 export default config;
